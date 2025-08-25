@@ -1,7 +1,11 @@
+// App.jsx - CORRIGIDO (Opção 1)
+
 import "./App.css";
+import Profile from "./Profile.jsx"; // Você importou como "Profile"
 
 function App() {
-  return <h1>Hello World!</h1>;
+  // Use o nome da importação!
+  return <Profile />;
 }
 
 export default App;
