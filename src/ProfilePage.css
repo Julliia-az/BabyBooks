@@ -1,5 +1,3 @@
-/* --- ESTILOS GERAIS E PARA CELULAR (Mobile First) --- */
-
 .profile-page {
   min-height: 100vh;
   background: #fff;
@@ -9,55 +7,53 @@
 }
 
 .profile-container {
-  max-width: 935px; /* Aumentado para um padrão de desktop */
+  max-width: 935px; 
   margin: 0 auto;
   padding: 16px;
 }
 
 .profile-header {
   display: flex;
-  /* NO CELULAR: O layout será uma coluna */
   flex-direction: column;
-  align-items: center; /* Centraliza tudo no modo coluna */
+  align-items: center; 
   gap: 20px;
   margin-bottom: 24px;
 }
 
 .avatar-wrapper {
   border-radius: 50%;
-  padding: 4px; /* Aumenta a borda gradiente */
+  padding: 4px; 
   /* background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); */
   flex-shrink: 0;
 }
 
 .avatar {
-  /* Tamanho maior e adaptável */
   width: 80px;
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid white; /* Borda interna para destacar do gradiente */
+  border: 2px solid white; 
 }
 
 .profile-info {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centraliza o texto no celular */
+  align-items: center; 
   gap: 12px;
   width: 100%;
 }
 
 .profile-top {
   display: flex;
-  flex-direction: column; /* Botão fica abaixo do nome no celular */
+  flex-direction: column; 
   align-items: center;
   gap: 10px;
 }
 
 .username {
   font-size: 20px;
-  font-weight: 300; /* Fonte mais fina, estilo Instagram */
+  font-weight: 300; 
   color: #333;
 }
 
@@ -97,7 +93,7 @@
 
 .name {
   font-size: 14px;
-  font-weight: 600; /* 'bold' é 700, 600 é semi-bold */
+  font-weight: 600; 
 }
 
 .highlights {
@@ -113,7 +109,7 @@
 }
 
 .highlight-icon {
-  width: 60px; /* Destaques um pouco maiores */
+  width: 60px; 
   height: 60px;
   border-radius: 50%;
   border: 1px solid #dbdbdb;
@@ -157,8 +153,8 @@
 
 /* --- GRID DE POSTS RESPONSIVO --- */
 .post-grid {
-  display: grid; /* Usando GRID em vez de Flexbox para o grid */
-  grid-template-columns: repeat(3, 1fr); /* 3 colunas flexíveis */
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas */
   gap: 4px; /* Espaçamento entre os posts */
   margin-top: 15px;
 }
@@ -183,7 +179,7 @@
 }
 
 /* --- AJUSTES PARA TELAS MAIORES (TABLET/DESKTOP) --- */
-/* Esta regra se aplica a telas com 768px de largura ou mais */
+/* Telas com 768px de largura ou mais */
 
 @media (min-width: 768px) {
   .profile-container {
@@ -237,7 +233,7 @@
     gap: 28px; /* Espaçamento entre os posts */
   }
 }
-/* --- Novo post --- */
+/*  Novo post  */
 .new-post {
   display: flex;
   flex-direction: column;
@@ -267,7 +263,7 @@
   font-weight: 600;
 }
 
-/* --- Grid de posts de texto na aba TEXTOS --- */
+/* Grid de posts de texto na aba TEXTOS */
 .text-post-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -289,7 +285,7 @@
   overflow: hidden;
   font-size: 14px;
 }
-/* --- Grid de posts de texto na aba TEXTOS (responsivo) --- */
+/*   Grid de posts de texto na aba TEXTOS (responsivo)  */
 .text-post-grid {
   display: grid;
   gap: 8px;

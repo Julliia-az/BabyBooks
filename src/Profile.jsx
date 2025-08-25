@@ -30,7 +30,7 @@ const CameraIcon = () => (
   </svg>
 );
 
-// --- Posts ---
+//  Posts
 function PostGrid({ photos }) {
   return (
     <div className="post-grid">
@@ -113,7 +113,6 @@ export default function ProfilePage() {
           <Highlight icon={<CameraIcon />} title="PASSEIOS" />
         </section>
 
-        {/* TABS */}
         <div className="tabs">
           <button
             onClick={() => setTab("posts")}
