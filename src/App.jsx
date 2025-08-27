@@ -1,11 +1,13 @@
-// App.jsx - CORRIGIDO (Opção 1)
-
+import React from "react";
 import "./App.css";
-import Profile from "./Profile.jsx"; // Você importou como "Profile"
+import Home from "./components/Home.jsx";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+import "primeicons/primeicons.css";
+
+//import Profile from "./Profile.jsx";
 
 function App() {
-  // Use o nome da importação!
-  return <Profile />;
+  return <Home />;
 }
 
 export default App;
