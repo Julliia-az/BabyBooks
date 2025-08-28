@@ -14,17 +14,35 @@ const babyBookPhotos = [bbColo, bbCozinhando, bbEstudio, ultrassom];
 
 // Ícones
 const BookIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+  >
     <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20v-1H6.5a2.5 2.5 0 0 1 0-5H20V9H6.5a2.5 2.5 0 0 1 0-5H20V3H6.5A2.5 2.5 0 0 1 4 5.5v14z" />
   </svg>
 );
 const HeartIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+  >
     <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
   </svg>
 );
 const CameraIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+  >
     <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
     <circle cx="12" cy="13" r="3" />
   </svg>
@@ -60,7 +78,7 @@ function Highlight({ icon, title }) {
 }
 
 // Página
-export default function ProfilePage() {
+export default function Profile() {
   const [following, setFollowing] = useState(false);
   const [tab, setTab] = useState("posts");
   const [textPosts, setTextPosts] = useState([]);
@@ -95,9 +113,15 @@ export default function ProfilePage() {
             </div>
 
             <div className="stats">
-              <span><b>{babyBookPhotos.length + textPosts.length}</b> posts</span>
-              <span><b>2.4k</b> seguidores</span>
-              <span><b>231</b> seguindo</span>
+              <span>
+                <b>{babyBookPhotos.length + textPosts.length}</b> posts
+              </span>
+              <span>
+                <b>2.4k</b> seguidores
+              </span>
+              <span>
+                <b>231</b> seguindo
+              </span>
             </div>
 
             <div className="bio">

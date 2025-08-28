@@ -4,8 +4,11 @@ import { InputText } from "primereact/inputtext";
 import { Badge } from "primereact/badge";
 import { Avatar } from "primereact/avatar";
 import { Card } from "primereact/card";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
+
   const itemRenderer = (item) => (
     <a className="flex align-items-center p-menuitem-link">
       <span className={item.icon} />
@@ -22,10 +25,12 @@ function Home() {
     {
       //label: "Home",
       icon: "pi pi-home",
+      command: () => navigate("/"),
     },
     {
       //label: "User",
       icon: "pi pi-user",
+      command: () => navigate("/perfil"),
     },
     {
       //label: "Contact",
@@ -38,7 +43,7 @@ function Home() {
   const start = (
     <img
       alt="logo"
-      src="src/imagens/BabyBook.png"
+      src="src/imagens/Logo.png"
       height="45"
       className="mr-2"
     ></img>
