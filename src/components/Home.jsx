@@ -3,10 +3,11 @@ import { Menubar } from "primereact/menubar";
 import { InputText } from "primereact/inputtext";
 import { Badge } from "primereact/badge";
 import { Avatar } from "primereact/avatar";
-import { Card } from "primereact/card";
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
 import { useNavigate } from "react-router-dom";
 
-function Home() {
+function Menu() {
   const navigate = useNavigate();
 
   const itemRenderer = (item) => (
@@ -75,6 +76,39 @@ function Home() {
       />
     </div>
   );
+}
+
+function Posts(){
+  const header = (
+         <img alt="Card" src="" />
+    );
+    const footer = (
+        <>
+            <Button label="Like" icon="pi pi-thumbs-up" />
+            <Button label="Comment" severity="secondary" icon="pi pi-comment" style={{ marginLeft: '0.5em' }} />
+        </>
+    );
+
+    return (
+        <div className="card flex justify-content-center" style={{width: '45rem'}}>
+            <Card title="Advanced Card" subTitle="Card subtitle" footer={footer} header={header} className="md:w-25rem">
+                <p className="m-0" >
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae 
+                    numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+                </p>
+            </Card>
+        </div>
+    )
+}
+
+function Home(){
+  return(
+    <div>
+      <Menu />
+      <Posts />
+    </div>
+    
+  )
 }
 
 export default Home;
