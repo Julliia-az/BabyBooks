@@ -6,6 +6,8 @@ import { Avatar } from "primereact/avatar";
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { useNavigate } from "react-router-dom";
+import { Fieldset } from 'primereact/fieldset';
+//import { Avatar } from '@/components/lib/avatar/Avatar';
 
 function Menu() {
   const navigate = useNavigate();
@@ -39,6 +41,10 @@ function Menu() {
       badge: 1,
       template: itemRenderer,
     },
+    {
+      icon: "pi pi-plus-circle",
+      command: () => navigate("/NewPost"),
+    }
   ];
 
   const start = (
@@ -79,26 +85,42 @@ function Menu() {
 }
 
 function Posts(){
-  const header = (
-         <img alt="Card" src="" />
-    );
-    const footer = (
-        <>
-            <Button label="Like" icon="pi pi-thumbs-up" />
-            <Button label="Comment" severity="secondary" icon="pi pi-comment" style={{ marginLeft: '0.5em' }} />
-        </>
-    );
+   const footer = (
+    <>
+      <Button label="Like" icon="pi pi-thumbs-up" />
+      <Button label="Comment" severity="secondary" icon="pi pi-comment" style={{ marginLeft: '0.5em'}} />
+    </>
+  );
 
-    return (
-        <div className="card flex justify-content-center" style={{width: '45rem'}}>
-            <Card title="Advanced Card" subTitle="Card subtitle" footer={footer} header={header} className="md:w-25rem">
-                <p className="m-0" >
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae 
-                    numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-                </p>
-            </Card>
-        </div>
-    )
+  return (
+        <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        minHeight: '80vh',
+        width: '100%',
+        padding: '1rem',
+        boxSizing: 'border-box',
+      }}
+    >
+      <Card title="Title" subTitle="@user" footer={footer} style={{ width: '600px' }}>
+        <p className="m-0" >
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae 
+          numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+        </p>
+      </Card>
+      <Card title="Title" subTitle="@user" footer={footer} style={{ width: '600px' }}>
+        <p className="m-0" >
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae 
+          numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+        </p>
+      </Card>
+    </div>
+  );
+
+
 }
 
 function Home(){
