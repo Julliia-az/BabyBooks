@@ -3,10 +3,10 @@ import { Menubar } from "primereact/menubar";
 import { InputText } from "primereact/inputtext";
 import { Badge } from "primereact/badge";
 import { Avatar } from "primereact/avatar";
-import { Card } from 'primereact/card';
-import { Button } from 'primereact/button';
+import { Card } from "primereact/card";
+import { Button } from "primereact/button";
 import { useNavigate } from "react-router-dom";
-import { Fieldset } from 'primereact/fieldset';
+import { Fieldset } from "primereact/fieldset";
 //import { Avatar } from '@/components/lib/avatar/Avatar';
 
 function Menu() {
@@ -44,7 +44,7 @@ function Menu() {
     {
       icon: "pi pi-plus-circle",
       command: () => navigate("/NewPost"),
-    }
+    },
   ];
 
   const start = (
@@ -78,59 +78,96 @@ function Menu() {
         model={items}
         start={start}
         end={end}
-        style={{ backgroundColor: "#c97d68" }}
+        style={{
+          position: "fixed",
+          width: "99%",
+          justifyContent: "center",
+          backgroundColor: "#c97d68",
+          zIndex: "5",
+        }}
       />
     </div>
   );
 }
 
-function Posts(){
-   const footer = (
+function Posts() {
+  const footer = (
     <>
       <Button label="Like" icon="pi pi-thumbs-up" />
-      <Button label="Comment" severity="secondary" icon="pi pi-comment" style={{ marginLeft: '0.5em'}} />
+      <Button
+        label="Comment"
+        severity="secondary"
+        icon="pi pi-comment"
+        style={{ marginLeft: "0.5em" }}
+      />
     </>
   );
 
   return (
-        <div
+    <div
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        minHeight: '80vh',
-        width: '100%',
-        padding: '1rem',
-        boxSizing: 'border-box',
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-around",
+        alignItems: "center",
+        minHeight: "80vh",
+        width: "100%",
+        padding: "1rem",
+        boxSizing: "border-box",
+        paddingTop: "6rem",
+        paddingBottom: "4rem",
       }}
     >
-      <Card title="Title" subTitle="@user" footer={footer} style={{ width: '600px' }}>
-        <p className="m-0" >
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae 
-          numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+      <Card
+        title="Title"
+        subTitle="@user"
+        footer={footer}
+        style={{ width: "600px", marginBottom: "2rem", borderStyle: "double" }}
+      >
+        <p className="m-0">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
+          sed consequuntur error repudiandae numquam deserunt quisquam repellat
+          libero asperiores earum nam nobis, culpa ratione quam perferendis
+          esse, cupiditate neque quas!
         </p>
       </Card>
-      <Card title="Title" subTitle="@user" footer={footer} style={{ width: '600px' }}>
-        <p className="m-0" >
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae 
-          numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+      <Card
+        title="Title"
+        subTitle="@user"
+        footer={footer}
+        style={{ width: "600px", marginBottom: "2rem", borderStyle: "double" }}
+      >
+        <p className="m-0">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
+          sed consequuntur error repudiandae numquam deserunt quisquam repellat
+          libero asperiores earum nam nobis, culpa ratione quam perferendis
+          esse, cupiditate neque quas!
+        </p>
+      </Card>
+      <Card
+        title="Title"
+        subTitle="@user"
+        footer={footer}
+        style={{ width: "600px", marginBottom: "2rem", borderStyle: "double" }}
+      >
+        <p className="m-0">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
+          sed consequuntur error repudiandae numquam deserunt quisquam repellat
+          libero asperiores earum nam nobis, culpa ratione quam perferendis
+          esse, cupiditate neque quas!
         </p>
       </Card>
     </div>
   );
-
-
 }
 
-function Home(){
-  return(
+function Home() {
+  return (
     <div>
       <Menu />
       <Posts />
     </div>
-    
-  )
+  );
 }
 
 export default Home;
