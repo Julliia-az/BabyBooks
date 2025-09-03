@@ -1,44 +1,18 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-// Importa imagens
-import bbColo from "./imagens/bbColo.jpg";
-import bbCozinhando from "./imagens/bbCozinhando.jpg";
-import bbEstudio from "./imagens/bbEstudio.jpg";
-import ultrassom from "./imagens/ultrassom.jpg";
-import { useNavigate } from "react-router-dom";
 import { Menubar } from "primereact/menubar";
 import { InputText } from "primereact/inputtext";
 import { Badge } from "primereact/badge";
-import { Avatar } from "primereact/avatar";
-import "./ProfilePage.css"; // Importa o CSS separado
+import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { ScrollPanel } from "primereact/scrollpanel";
+import "primeicons/primeicons.css";
+import HighlightStories from "./stories";
+import "./stories.css"; // CSS do stories/destaques
+import "./ProfilePage.css";
 
-// Imagens
-const avatarUrl = bbColo;
-const babyBookPhotos = [bbColo, bbCozinhando, bbEstudio, ultrassom];
+import bbColo from "./imagens/bbColo.jpg";
+const avatarUrl = bbColo; // Foto do perfil
 
-// Ícones
-const BookIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
-    fill="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20v-1H6.5a2.5 2.5 0 0 1 0-5H20V9H6.5a2.5 2.5 0 0 1 0-5H20V3H6.5A2.5 2.5 0 0 1 4 5.5v14z" />
-  </svg>
-);
-const HeartIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
-    fill="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-  </svg>
-);
 const CameraIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -52,39 +26,12 @@ const CameraIcon = () => (
   </svg>
 );
 
-//  Posts
-function PostGrid({ photos }) {
-  return (
-    <div className="post-grid">
-      {photos.map((src, i) => (
-        <div key={i} className="post-item">
-          <motion.img
-            src={src}
-            alt={`post-${i}`}
-            className="post-img"
-            whileHover={{ scale: 1.1 }}
-            transition={{ duration: 0.3 }}
-          />
-        </div>
-      ))}
-    </div>
-  );
-}
-
-// Destaques
-function Highlight({ icon, title }) {
-  return (
-    <div className="highlight">
-      <div className="highlight-icon">{icon}</div>
-      <p className="highlight-title">{title}</p>
-    </div>
-  );
-}
-
 // Página
 export default function Profile() {
   const [following, setFollowing] = useState(false);
   const [tab, setTab] = useState("posts");
+  const [caption, setCaption] = useState("");
+
   const [textPosts, setTextPosts] = useState([]);
   const [newPost, setNewPost] = useState("");
 
@@ -153,6 +100,23 @@ export default function Profile() {
     </div>
   );
 
+  const [mediaPosts, setMediaPosts] = useState([]);
+  const [newFile, setNewFile] = useState(null);
+
+  function handleFileChange(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    setNewFile(file);
+  }
+
+  function handleMediaSubmit() {
+    if (!newFile) return;
+    const url = URL.createObjectURL(newFile);
+    setMediaPosts([{ file: newFile, url, caption }, ...mediaPosts]);
+    setNewFile(null);
+    setCaption("");
+  }
+
   return (
     <div className="profile-page">
       <div className="card">
@@ -184,10 +148,10 @@ export default function Profile() {
 
             <div className="stats">
               <span>
-                <b>{babyBookPhotos.length + textPosts.length}</b> posts
+                <b>{mediaPosts.length + textPosts.length}</b> posts
               </span>
               <span>
-                <b>2.4k</b> seguidores
+                <b>1.076mil</b> seguidores
               </span>
               <span>
                 <b>231</b> seguindo
@@ -201,24 +165,13 @@ export default function Profile() {
           </div>
         </header>
 
-        <section className="highlights">
-          <Highlight icon={<BookIcon />} title="DIÁRIO" />
-          <Highlight icon={<HeartIcon />} title="MESES" />
-          <Highlight icon={<CameraIcon />} title="PASSEIOS" />
-        </section>
-
+        <HighlightStories />
         <div className="tabs">
           <button
             onClick={() => setTab("posts")}
             className={`tab-btn ${tab === "posts" ? "active" : ""}`}
           >
-            POSTS
-          </button>
-          <button
-            onClick={() => setTab("marcados")}
-            className={`tab-btn ${tab === "marcados" ? "active" : ""}`}
-          >
-            MARCADOS
+            <span>POSTS</span>
           </button>
           <button
             onClick={() => setTab("textos")}
@@ -230,26 +183,81 @@ export default function Profile() {
 
         <main>
           {/* Aba POSTS */}
-          {tab === "posts" && <PostGrid photos={babyBookPhotos} />}
+          {tab === "posts" && (
+            <>
+              <div className="new-post">
+                {/* Esconde o input */}
+                <input
+                  type="file"
+                  id="fileInput"
+                  accept="image/*,video/*"
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                />
 
-          {/* Aba MARCADOS */}
-          {tab === "marcados" && (
-            <div className="empty-tab">
-              <h2>Fotos com você</h2>
-              <p>Quando marcarem você em uma foto, ela aparecerá aqui.</p>
-            </div>
+                <motion.label
+                  htmlFor="fileInput"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="action-btn"
+                >
+                  Fazer um post
+                </motion.label>
+
+                {/* campo de legenda (só aparece se tiver arquivo) */}
+                {newFile && (
+                  <textarea
+                    placeholder="Escreva uma legenda..."
+                    value={caption}
+                    onChange={(e) => setCaption(e.target.value)}
+                    className="caption-input"
+                  />
+                )}
+
+                {newFile && (
+                  <motion.button
+                    onClick={handleMediaSubmit}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="action-btn"
+                  >
+                    Publicar
+                  </motion.button>
+                )}
+              </div>
+              <div className="post-grid">
+                {mediaPosts.map((post, i) => (
+                  <div key={i} className="media-post">
+                    <div className="media-wrapper">
+                      {post.file.type.startsWith("image") ? (
+                        <img src={post.url} alt="post" className="post-img" />
+                      ) : (
+                        <video src={post.url} controls className="post-img" />
+                      )}
+                    </div>
+                    {post.caption && <p className="caption">{post.caption}</p>}
+                  </div>
+                ))}
+              </div>{" "}
+              {mediaPosts.length === 0 && (
+                <div className="empty-tab">
+                  <h2>Nenhum post ainda</h2>
+                  <p>Poste uma foto ou vídeo para aparecer nesta seção.</p>
+                </div>
+              )}
+            </>
           )}
 
           {/* Aba TEXTOS */}
           {tab === "textos" && (
             <>
-              {/* Novo post apenas na aba textos */}
               <div className="new-post">
                 <textarea
-                  placeholder="O que você quer compartilhar?"
+                  placeholder="O que você gostaria de compartilhar?"
                   value={newPost}
                   onChange={(e) => setNewPost(e.target.value)}
                 />
+
                 <motion.button
                   onClick={handlePostSubmit}
                   whileHover={{ scale: 1.05 }}
@@ -259,12 +267,20 @@ export default function Profile() {
                 </motion.button>
               </div>
 
-              {/* Grid de posts de texto */}
+              {/* ScrollPanel */}
               {textPosts.length > 0 ? (
                 <div className="text-post-grid">
                   {textPosts.map((text, i) => (
-                    <div key={`text-${i}`} className="text-post">
-                      <p>{text}</p>
+                    <div key={i} className="text-post">
+                      <ScrollPanel
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          border: "2px solid #ccc",
+                        }}
+                      >
+                        <div style={{ padding: "10px" }}>{text}</div>
+                      </ScrollPanel>
                     </div>
                   ))}
                 </div>
