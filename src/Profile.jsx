@@ -124,10 +124,16 @@ export default function Profile() {
           model={items}
           start={start}
           end={end}
-          style={{ backgroundColor: "#c97d68" }}
+          style={{
+            position: "fixed",
+            width: "99%",
+            justifyContent: "center",
+            backgroundColor: "#c97d68",
+            zIndex: "5",
+          }}
         />
       </div>
-      <div className="profile-container">
+      <div className="profile-container" style={{ paddingTop: "5rem" }}>
         <header className="profile-header">
           <div className="avatar-wrapper">
             <img src={avatarUrl} alt="avatar" className="avatar" />

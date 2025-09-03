@@ -5,7 +5,11 @@ import { Badge } from "primereact/badge";
 import { Avatar } from "primereact/avatar";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
+import { Card } from "primereact/card";
+import { Button } from "primereact/button";
 import { useNavigate } from "react-router-dom";
+import { Fieldset } from "primereact/fieldset";
+//import { Avatar } from '@/components/lib/avatar/Avatar';
 
 function Menu() {
   const navigate = useNavigate();
@@ -38,6 +42,10 @@ function Menu() {
       icon: "pi pi-bell",
       badge: 1,
       template: itemRenderer,
+    },
+    {
+      icon: "pi pi-plus-circle",
+      command: () => navigate("/NewPost"),
     },
   ];
 
@@ -72,7 +80,13 @@ function Menu() {
         model={items}
         start={start}
         end={end}
-        style={{ backgroundColor: "#c97d68" }}
+        style={{
+          position: "fixed",
+          width: "99%",
+          justifyContent: "center",
+          backgroundColor: "#c97d68",
+          zIndex: "5",
+        }}
       />
     </div>
   );
@@ -117,10 +131,13 @@ function Posts() {
 
 function Home() {
   return (
+function Home() {
+  return (
     <div>
       <Menu />
       <Posts />
     </div>
+  );
   );
 }
 
