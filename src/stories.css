@@ -118,7 +118,6 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
-/* Mostra os botões em telas grandes */
 @media (min-width: 768px) {
   .prev-btn,
   .next-btn {

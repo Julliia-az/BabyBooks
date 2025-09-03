@@ -131,13 +131,10 @@ function Posts() {
 
 function Home() {
   return (
-function Home() {
-  return (
     <div>
       <Menu />
       <Posts />
     </div>
-  );
   );
 }
 
