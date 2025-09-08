@@ -1,40 +1,286 @@
 import { Menubar } from "primereact/menubar";
 import { InputText } from "primereact/inputtext";
 import { Badge } from "primereact/badge";
-// import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ScrollPanel } from "primereact/scrollpanel";
 import "primeicons/primeicons.css";
 import HighlightStories from "./stories";
-import "./stories.css"; // CSS do stories/destaques
-import "./ProfilePage.css";
 import Menu from "./Menu";
+import styled from "styled-components";
+
 
 import bbColo from "../imagens/bbColo.jpg";
 const avatarUrl = bbColo; // Foto do perfil
 
-const CameraIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
-    fill="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
-    <circle cx="12" cy="13" r="3" />
-  </svg>
-);
+// 🔹 Styled Components
+const ProfilePage = styled.div`
+  min-height: 100vh;
+  background: ${({ theme }) => theme.body};
+  color: ${({ theme }) => theme.text};
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+`;
 
-// Página
+const Container = styled.div`
+  max-width: 935px;
+  margin: 0 auto;
+  padding: 16px;
+
+  @media (min-width: 768px) {
+    padding: 30px 20px;
+  }
+`;
+
+const Header = styled.header`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 50px;
+  }
+`;
+
+const Avatar = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+
+  @media (min-width: 768px) {
+    width: 150px;
+    height: 150px;
+  }
+`;
+
+const Info = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    align-items: flex-start;
+    gap: 20px;
+  }
+`;
+
+const Username = styled.h1`
+  font-size: 20px;
+  font-weight: 300;
+  color: ${({ theme }) => theme.text};
+
+  @media (min-width: 768px) {
+    font-size: 28px;
+  }
+`;
+
+const FollowButton = styled(motion.button)`
+  padding: 6px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #dbdbdb;
+  cursor: pointer;
+  background: #c97d68;
+  color: white;
+  font-weight: 600;
+  transition: 0.3s;
+
+  &.following {
+    background: #c97d68;
+    color: white;
+    border-color: #c97d68;
+  }
+
+  &:hover {
+    background: #c6cdbc;
+  }
+`;
+
+const Stats = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 14px;
+  width: 100%;
+  padding: 12px 0;
+  border-top: 1px solid #dbdbdb;
+  border-bottom: 1px solid #dbdbdb;
+
+  @media (min-width: 768px) {
+    justify-content: flex-start;
+    border: none;
+    padding: 0;
+    gap: 40px;
+    font-size: 16px;
+  }
+`;
+
+const Bio = styled.div`
+  font-size: 14px;
+  text-align: center;
+
+  @media (min-width: 768px) {
+    text-align: left;
+    font-size: 16px;
+  }
+`;
+
+const Tabs = styled.div`
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid #dbdbdb;
+  margin-top: 15px;
+`;
+
+const TabButton = styled.button`
+  flex: 1;
+  max-width: 250px;
+  padding: 12px;
+  font-size: 13px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: ${({ active, theme }) => (active ? theme.text : "#8e8e8e")};
+  letter-spacing: 1px;
+  border-top: ${({ active }) => (active ? "1px solid #262626" : "none")};
+`;
+
+const NewPost = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+
+  textarea {
+    width: 100%;
+    min-height: 60px;
+    padding: 8px;
+    resize: none;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #dbdbdb;
+  }
+
+  button {
+    align-self: flex-end;
+    padding: 6px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: none;
+    background-color: #c97d68;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+
+    &:hover {
+      background-color: #c6cdbc;
+    }
+  }
+`;
+
+const PostGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+const MediaPost = styled.div`
+  width: 100%;
+  border-radius: 12px;
+  background-color: ${({ theme }) => theme.body};
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+`;
+
+const MediaWrapper = styled.div`
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: #f0f0f0;
+
+  img,
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
+const Caption = styled.p`
+  padding: 4px 6px;
+  font-size: 13px;
+  text-align: center;
+  background-color: ${({ theme }) => theme.body};
+  font-family: monospace;
+`;
+
+const EmptyTab = styled.div`
+  text-align: center;
+  margin: 20px 0;
+`;
+
+const TextPostGrid = styled.div`
+  display: grid;
+  gap: 8px;
+  margin: 15px 0;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+const TextPost = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  word-break: break-word;
+  text-align: center;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  font-size: 14px;
+`;
+
+
+// 🔹 Página
 export default function Profile() {
   const [following, setFollowing] = useState(false);
   const [tab, setTab] = useState("posts");
   const [caption, setCaption] = useState("");
-
   const [textPosts, setTextPosts] = useState([]);
   const [newPost, setNewPost] = useState("");
+  const [mediaPosts, setMediaPosts] = useState([]);
+  const [newFile, setNewFile] = useState(null);
 
   const handlePostSubmit = () => {
     if (newPost.trim() !== "") {
@@ -42,9 +288,6 @@ export default function Profile() {
       setNewPost("");
     }
   };
-
-  const [mediaPosts, setMediaPosts] = useState([]);
-  const [newFile, setNewFile] = useState(null);
 
   function handleFileChange(e) {
     const file = e.target.files[0];
@@ -61,28 +304,26 @@ export default function Profile() {
   }
 
   return (
-    <div className="profile-page">
+    <ProfilePage>
       <Menu />
-      <div className="profile-container" style={{ paddingTop: "5rem" }}>
-        <header className="profile-header">
-          <div className="avatar-wrapper">
-            <img src={avatarUrl} alt="avatar" className="avatar" />
-          </div>
+      <Container style={{ paddingTop: "5rem" }}>
+        <Header>
+          <Avatar src={avatarUrl} alt="avatar" />
 
-          <div className="profile-info">
-            <div className="profile-top">
-              <h1 className="username">@mamãe.da.ana</h1>
-              <motion.button
+          <Info>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              <Username>@mamãe.da.ana</Username>
+              <FollowButton
                 onClick={() => setFollowing(!following)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`follow-btn ${following ? "following" : ""}`}
+                className={following ? "following" : ""}
               >
                 {following ? "Seguindo" : "Seguir"}
-              </motion.button>
+              </FollowButton>
             </div>
 
-            <div className="stats">
+            <Stats>
               <span>
                 <b>{mediaPosts.length + textPosts.length}</b> posts
               </span>
@@ -92,37 +333,31 @@ export default function Profile() {
               <span>
                 <b>231</b> seguindo
               </span>
-            </div>
+            </Stats>
 
-            <div className="bio">
-              <h2 className="name">Mamãe da Ana</h2>
+            <Bio>
+              <h2>Mamãe da Ana</h2>
               <p>Diário de aventuras e descobertas da minha pequena Ana! 💖</p>
-            </div>
-          </div>
-        </header>
+            </Bio>
+          </Info>
+        </Header>
 
         <HighlightStories />
-        <div className="tabs">
-          <button
-            onClick={() => setTab("posts")}
-            className={`tab-btn ${tab === "posts" ? "active" : ""}`}
-          >
-            <span>POSTS</span>
-          </button>
-          <button
-            onClick={() => setTab("textos")}
-            className={`tab-btn ${tab === "textos" ? "active" : ""}`}
-          >
+
+        <Tabs>
+          <TabButton onClick={() => setTab("posts")} active={tab === "posts"}>
+            POSTS
+          </TabButton>
+          <TabButton onClick={() => setTab("textos")} active={tab === "textos"}>
             TEXTOS
-          </button>
-        </div>
+          </TabButton>
+        </Tabs>
 
         <main>
           {/* Aba POSTS */}
           {tab === "posts" && (
             <>
-              <div className="new-post">
-                {/* Esconde o input */}
+              <NewPost>
                 <input
                   type="file"
                   id="fileInput"
@@ -140,13 +375,11 @@ export default function Profile() {
                   Fazer um post
                 </motion.label>
 
-                {/* campo de legenda (só aparece se tiver arquivo) */}
                 {newFile && (
                   <textarea
                     placeholder="Escreva uma legenda..."
                     value={caption}
                     onChange={(e) => setCaption(e.target.value)}
-                    className="caption-input"
                   />
                 )}
 
@@ -155,31 +388,32 @@ export default function Profile() {
                     onClick={handleMediaSubmit}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="action-btn"
                   >
                     Publicar
                   </motion.button>
                 )}
-              </div>
-              <div className="post-grid">
+              </NewPost>
+
+              <PostGrid>
                 {mediaPosts.map((post, i) => (
-                  <div key={i} className="media-post">
-                    <div className="media-wrapper">
+                  <MediaPost key={i}>
+                    <MediaWrapper>
                       {post.file.type.startsWith("image") ? (
-                        <img src={post.url} alt="post" className="post-img" />
+                        <img src={post.url} alt="post" />
                       ) : (
-                        <video src={post.url} controls className="post-img" />
+                        <video src={post.url} controls />
                       )}
-                    </div>
-                    {post.caption && <p className="caption">{post.caption}</p>}
-                  </div>
+                    </MediaWrapper>
+                    {post.caption && <Caption>{post.caption}</Caption>}
+                  </MediaPost>
                 ))}
-              </div>{" "}
+              </PostGrid>
+
               {mediaPosts.length === 0 && (
-                <div className="empty-tab">
+                <EmptyTab>
                   <h2>Nenhum post ainda</h2>
-                  <p>Poste uma foto ou vídeo para aparecer nesta seção.</p>
-                </div>
+                  <p>Poste uma foto ou vídeo para aparecer nesta seção!</p>
+                </EmptyTab>
               )}
             </>
           )}
@@ -187,7 +421,7 @@ export default function Profile() {
           {/* Aba TEXTOS */}
           {tab === "textos" && (
             <>
-              <div className="new-post">
+              <NewPost>
                 <textarea
                   placeholder="O que você gostaria de compartilhar?"
                   value={newPost}
@@ -201,13 +435,12 @@ export default function Profile() {
                 >
                   Publicar
                 </motion.button>
-              </div>
+              </NewPost>
 
-              {/* ScrollPanel */}
               {textPosts.length > 0 ? (
-                <div className="text-post-grid">
+                <TextPostGrid>
                   {textPosts.map((text, i) => (
-                    <div key={i} className="text-post">
+                    <TextPost key={i}>
                       <ScrollPanel
                         style={{
                           width: "100%",
@@ -217,19 +450,24 @@ export default function Profile() {
                       >
                         <div style={{ padding: "10px" }}>{text}</div>
                       </ScrollPanel>
-                    </div>
+                    </TextPost>
                   ))}
-                </div>
+                </TextPostGrid>
               ) : (
-                <div className="empty-tab">
-                  <h2>Nenhum post de texto ainda</h2>
+                <EmptyTab>
+                  <h2>Nada compartilhado ainda</h2>
                   <p>Escreva algo para aparecer nesta seção.</p>
-                </div>
+                </EmptyTab>
               )}
             </>
           )}
         </main>
-      </div>
-    </div>
+      </Container>
+    </ProfilePage>
   );
 }
+
+
+
+
+
