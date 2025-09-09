@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import Stories from "react-insta-stories";
 import "./Stories.css";
 
-export default function HighlightStories() {
+export default function HighlightStories({ stories: newStories }) {
   const [activeStories, setActiveStories] = useState(null);
   const [storyIndex, setStoryIndex] = useState(0);
 
+  // Stories fixos
   const highlights = [
     {
       title: "DIÁRIO",
@@ -31,6 +32,16 @@ export default function HighlightStories() {
       stories: [{ url: "src/imagens/AnaParque.jpg" }],
     },
   ];
+
+  // Adiciona novos stories passados via props
+  const allHighlights = [...highlights];
+  if (newStories && newStories.length > 0) {
+    allHighlights.push({
+      title: "NOVOS",
+      thumb: newStories[0].url,
+      stories: newStories,
+    });
+  }
 
   const closeStories = () => {
     setActiveStories(null);
@@ -60,7 +71,7 @@ export default function HighlightStories() {
 
   return (
     <div className="highlights">
-      {highlights.map((highlight, index) => (
+      {allHighlights.map((highlight, index) => (
         <div
           key={index}
           className="highlight-circle"
@@ -96,7 +107,6 @@ export default function HighlightStories() {
               />
             </div>
 
-            {/* Botões para desktop */}
             <button className="prev-btn" onClick={prevStory}>
               ‹
             </button>

@@ -9,7 +9,6 @@ import HighlightStories from "./stories";
 import Menu from "./Menu";
 import styled from "styled-components";
 
-
 import bbColo from "../imagens/bbColo.jpg";
 const avatarUrl = bbColo; // Foto do perfil
 
@@ -37,13 +36,18 @@ const Header = styled.header`
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  margin-bottom: 24px;
+  margin-bottom: 8px; /* reduzido para ficar mais próximo do topo */
 
   @media (min-width: 768px) {
     flex-direction: row;
     align-items: flex-start;
     gap: 50px;
   }
+`;
+
+const AvatarWrapper = styled.div`
+  position: relative;
+  display: inline-block;
 `;
 
 const Avatar = styled.img`
@@ -56,6 +60,29 @@ const Avatar = styled.img`
   @media (min-width: 768px) {
     width: 150px;
     height: 150px;
+  }
+`;
+
+const AddStoryButton = styled.label`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #c97d68;
+  color: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  border: 2px solid white;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background: #a65e4f;
   }
 `;
 
@@ -271,6 +298,43 @@ const TextPost = styled.div`
   font-size: 14px;
 `;
 
+const CaptionContainer = styled.div`
+  padding: 4px 6px;
+  font-size: 13px;
+  text-align: center;
+  background-color: ${({ theme }) => theme.body};
+  font-family: monospace;
+  max-height: ${({ expanded }) => (expanded ? "none" : "40px")};
+  overflow: hidden;
+  position: relative;
+`;
+
+const ReadMoreButton = styled.span`
+  display: block;
+  margin-top: 4px;
+  color: #c97d68;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 12px;
+`;
+
+function PostCaption({ text }) {
+  const [expanded, setExpanded] = useState(false);
+  const maxLength = 80;
+
+  if (text.length <= maxLength) {
+    return <CaptionContainer expanded>{text}</CaptionContainer>;
+  }
+
+  return (
+    <CaptionContainer expanded={expanded}>
+      {expanded ? text : text.slice(0, maxLength) + "..."}
+      <ReadMoreButton onClick={() => setExpanded(!expanded)}>
+        {expanded ? "Ler menos" : "Ler mais"}
+      </ReadMoreButton>
+    </CaptionContainer>
+  );
+}
 
 // 🔹 Página
 export default function Profile() {
@@ -281,6 +345,8 @@ export default function Profile() {
   const [newPost, setNewPost] = useState("");
   const [mediaPosts, setMediaPosts] = useState([]);
   const [newFile, setNewFile] = useState(null);
+
+  const [stories, setStories] = useState([]);
 
   const handlePostSubmit = () => {
     if (newPost.trim() !== "") {
@@ -303,15 +369,35 @@ export default function Profile() {
     setCaption("");
   }
 
+  function handleStoryChange(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    setStories([{ file, url }, ...stories]);
+  }
+
   return (
     <ProfilePage>
       <Menu />
-      <Container style={{ paddingTop: "5rem" }}>
+      <Container style={{ paddingTop: "0" }}>
         <Header>
-          <Avatar src={avatarUrl} alt="avatar" />
+          <AvatarWrapper>
+            <Avatar src={avatarUrl} alt="avatar" />
+
+            <input
+              type="file"
+              id="storyInput"
+              accept="image/*,video/*"
+              onChange={handleStoryChange}
+              style={{ display: "none" }}
+            />
+            <AddStoryButton htmlFor="storyInput">+</AddStoryButton>
+          </AvatarWrapper>
 
           <Info>
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+            >
               <Username>@mamãe.da.ana</Username>
               <FollowButton
                 onClick={() => setFollowing(!following)}
@@ -342,19 +428,21 @@ export default function Profile() {
           </Info>
         </Header>
 
-        <HighlightStories />
+        <HighlightStories stories={stories} />
 
         <Tabs>
           <TabButton onClick={() => setTab("posts")} active={tab === "posts"}>
             POSTS
           </TabButton>
-          <TabButton onClick={() => setTab("textos")} active={tab === "textos"}>
+          <TabButton
+            onClick={() => setTab("textos")}
+            active={tab === "textos"}
+          >
             TEXTOS
           </TabButton>
         </Tabs>
 
         <main>
-          {/* Aba POSTS */}
           {tab === "posts" && (
             <>
               <NewPost>
@@ -404,7 +492,7 @@ export default function Profile() {
                         <video src={post.url} controls />
                       )}
                     </MediaWrapper>
-                    {post.caption && <Caption>{post.caption}</Caption>}
+                    {post.caption && <PostCaption text={post.caption} />}
                   </MediaPost>
                 ))}
               </PostGrid>
@@ -418,7 +506,6 @@ export default function Profile() {
             </>
           )}
 
-          {/* Aba TEXTOS */}
           {tab === "textos" && (
             <>
               <NewPost>
@@ -466,8 +553,3 @@ export default function Profile() {
     </ProfilePage>
   );
 }
-
-
-
-
-
