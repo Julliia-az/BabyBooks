@@ -8,9 +8,11 @@ import "primeicons/primeicons.css";
 import HighlightStories from "./stories";
 import Menu from "./Menu";
 import styled from "styled-components";
+import TextPosts from "./Posts/TextPost.jsx";
+import MediaPosts from "./Posts/MediaPost.jsx";
 
 import bbColo from "../imagens/bbColo.jpg";
-const avatarUrl = bbColo; // Foto do perfil
+const avatarUrl = bbColo;
 
 // 🔹 Styled Components
 const ProfilePage = styled.div`
@@ -36,7 +38,7 @@ const Header = styled.header`
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  margin-bottom: 8px; /* reduzido para ficar mais próximo do topo */
+  margin-bottom: 8px;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -182,122 +184,6 @@ const TabButton = styled.button`
   border-top: ${({ active }) => (active ? "1px solid #262626" : "none")};
 `;
 
-const NewPost = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 15px;
-
-  textarea {
-    width: 100%;
-    min-height: 60px;
-    padding: 8px;
-    resize: none;
-    font-size: 14px;
-    border-radius: 8px;
-    border: 1px solid #dbdbdb;
-  }
-
-  button {
-    align-self: flex-end;
-    padding: 6px 16px;
-    font-size: 14px;
-    border-radius: 8px;
-    border: none;
-    background-color: #c97d68;
-    color: white;
-    cursor: pointer;
-    font-weight: 600;
-
-    &:hover {
-      background-color: #c6cdbc;
-    }
-  }
-`;
-
-const PostGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
-  width: 100%;
-  max-width: 1600px;
-  margin: 0 auto;
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
-  }
-
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-`;
-
-const MediaPost = styled.div`
-  width: 100%;
-  border-radius: 12px;
-  background-color: ${({ theme }) => theme.body};
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-`;
-
-const MediaWrapper = styled.div`
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  border-radius: 12px;
-  background-color: #f0f0f0;
-
-  img,
-  video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
-
-const Caption = styled.p`
-  padding: 4px 6px;
-  font-size: 13px;
-  text-align: center;
-  background-color: ${({ theme }) => theme.body};
-  font-family: monospace;
-`;
-
-const EmptyTab = styled.div`
-  text-align: center;
-  margin: 20px 0;
-`;
-
-const TextPostGrid = styled.div`
-  display: grid;
-  gap: 8px;
-  margin: 15px 0;
-  grid-template-columns: 1fr;
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-`;
-
-const TextPost = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  word-break: break-word;
-  text-align: center;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  font-size: 14px;
-`;
-
 const CaptionContainer = styled.div`
   padding: 4px 6px;
   font-size: 13px;
@@ -340,34 +226,9 @@ function PostCaption({ text }) {
 export default function Profile() {
   const [following, setFollowing] = useState(false);
   const [tab, setTab] = useState("posts");
-  const [caption, setCaption] = useState("");
   const [textPosts, setTextPosts] = useState([]);
-  const [newPost, setNewPost] = useState("");
   const [mediaPosts, setMediaPosts] = useState([]);
-  const [newFile, setNewFile] = useState(null);
-
   const [stories, setStories] = useState([]);
-
-  const handlePostSubmit = () => {
-    if (newPost.trim() !== "") {
-      setTextPosts([newPost, ...textPosts]);
-      setNewPost("");
-    }
-  };
-
-  function handleFileChange(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-    setNewFile(file);
-  }
-
-  function handleMediaSubmit() {
-    if (!newFile) return;
-    const url = URL.createObjectURL(newFile);
-    setMediaPosts([{ file: newFile, url, caption }, ...mediaPosts]);
-    setNewFile(null);
-    setCaption("");
-  }
 
   function handleStoryChange(e) {
     const file = e.target.files[0];
@@ -383,7 +244,6 @@ export default function Profile() {
         <Header>
           <AvatarWrapper>
             <Avatar src={avatarUrl} alt="avatar" />
-
             <input
               type="file"
               id="storyInput"
@@ -395,9 +255,7 @@ export default function Profile() {
           </AvatarWrapper>
 
           <Info>
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-            >
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               <Username>@mamãe.da.ana</Username>
               <FollowButton
                 onClick={() => setFollowing(!following)}
@@ -434,121 +292,18 @@ export default function Profile() {
           <TabButton onClick={() => setTab("posts")} active={tab === "posts"}>
             POSTS
           </TabButton>
-          <TabButton
-            onClick={() => setTab("textos")}
-            active={tab === "textos"}
-          >
+          <TabButton onClick={() => setTab("textos")} active={tab === "textos"}>
             TEXTOS
           </TabButton>
         </Tabs>
 
-        <main>
-          {tab === "posts" && (
-            <>
-              <NewPost>
-                <input
-                  type="file"
-                  id="fileInput"
-                  accept="image/*,video/*"
-                  onChange={handleFileChange}
-                  style={{ display: "none" }}
-                />
+        {tab === "posts" && (
+          <MediaPosts mediaPosts={mediaPosts} setMediaPosts={setMediaPosts} />
+        )}
 
-                <motion.label
-                  htmlFor="fileInput"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="action-btn"
-                >
-                  Fazer um post
-                </motion.label>
-
-                {newFile && (
-                  <textarea
-                    placeholder="Escreva uma legenda..."
-                    value={caption}
-                    onChange={(e) => setCaption(e.target.value)}
-                  />
-                )}
-
-                {newFile && (
-                  <motion.button
-                    onClick={handleMediaSubmit}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Publicar
-                  </motion.button>
-                )}
-              </NewPost>
-
-              <PostGrid>
-                {mediaPosts.map((post, i) => (
-                  <MediaPost key={i}>
-                    <MediaWrapper>
-                      {post.file.type.startsWith("image") ? (
-                        <img src={post.url} alt="post" />
-                      ) : (
-                        <video src={post.url} controls />
-                      )}
-                    </MediaWrapper>
-                    {post.caption && <PostCaption text={post.caption} />}
-                  </MediaPost>
-                ))}
-              </PostGrid>
-
-              {mediaPosts.length === 0 && (
-                <EmptyTab>
-                  <h2>Nenhum post ainda</h2>
-                  <p>Poste uma foto ou vídeo para aparecer nesta seção!</p>
-                </EmptyTab>
-              )}
-            </>
-          )}
-
-          {tab === "textos" && (
-            <>
-              <NewPost>
-                <textarea
-                  placeholder="O que você gostaria de compartilhar?"
-                  value={newPost}
-                  onChange={(e) => setNewPost(e.target.value)}
-                />
-
-                <motion.button
-                  onClick={handlePostSubmit}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Publicar
-                </motion.button>
-              </NewPost>
-
-              {textPosts.length > 0 ? (
-                <TextPostGrid>
-                  {textPosts.map((text, i) => (
-                    <TextPost key={i}>
-                      <ScrollPanel
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          border: "2px solid #ccc",
-                        }}
-                      >
-                        <div style={{ padding: "10px" }}>{text}</div>
-                      </ScrollPanel>
-                    </TextPost>
-                  ))}
-                </TextPostGrid>
-              ) : (
-                <EmptyTab>
-                  <h2>Nada compartilhado ainda</h2>
-                  <p>Escreva algo para aparecer nesta seção.</p>
-                </EmptyTab>
-              )}
-            </>
-          )}
-        </main>
+        {tab === "textos" && (
+          <TextPosts textPosts={textPosts} setTextPosts={setTextPosts} />
+        )}
       </Container>
     </ProfilePage>
   );

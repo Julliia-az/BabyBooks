@@ -1,54 +1,160 @@
-import React, { useState } from "react";
+import { Menubar } from "primereact/menubar";
 import { InputText } from "primereact/inputtext";
-import { InputTextarea } from "primereact/inputtextarea";
-import { Button } from "primereact/button";
-import { useNavigate } from "react-router-dom";
+import { Badge } from "primereact/badge";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { ScrollPanel } from "primereact/scrollpanel";
+import "primeicons/primeicons.css";
+import HighlightStories from "./stories";
+import Menu from "./Menu";
+import styled from "styled-components";
+import TextPosts from "./Posts/TextPost.jsx";
+import MediaPosts from "./Posts/MediaPost.jsx";
 
-function NewPost({ addPost }) {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const navigate = useNavigate();
+// 🔹 Styled Components
+const ProfilePage = styled.div`
+  min-height: 100vh;
+  background: ${({ theme }) => theme.body};
+  color: ${({ theme }) => theme.text};
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+`;
 
-  const handleSubmit = () => {
-    if (!title || !content) return;
+const Container = styled.div`
+  max-width: 935px;
+  margin: 0 auto;
+  padding: 16px;
 
-    const newPost = {
-      title,
-      user: "@julia", // você pode pegar do usuário logado
-      content,
-    };
+  @media (min-width: 768px) {
+    padding: 30px 20px;
+  }
+`;
 
-    addPost(newPost);
-    navigate("/"); // redireciona para a home
-  };
+const Header = styled.header`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 0px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 50px;
+  }
+`;
+
+const Info = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    align-items: flex-start;
+    gap: 20px;
+  }
+`;
+
+const Tabs = styled.div`
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid #dbdbdb;
+  margin-top: 15px;
+`;
+
+const TabButton = styled.button.attrs((props) => ({
+  "data-active": props.active ? "true" : "false",
+}))`
+  flex: 1;
+  max-width: 250px;
+  padding: 12px;
+  font-size: 13px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: ${({ active, theme }) => (active ? theme.text : "#8e8e8e")};
+  letter-spacing: 1px;
+  border-top: ${({ active }) => (active ? "1px solid #262626" : "none")};
+`;
+
+const CaptionContainer = styled.div`
+  padding: 4px 6px;
+  font-size: 13px;
+  text-align: center;
+  background-color: ${({ theme }) => theme.body};
+  font-family: monospace;
+  max-height: ${({ expanded }) => (expanded ? "none" : "40px")};
+  overflow: hidden;
+  position: relative;
+`;
+
+const ReadMoreButton = styled.span`
+  display: block;
+  margin-top: 4px;
+  color: #c97d68;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 12px;
+`;
+
+function PostCaption({ text }) {
+  const [expanded, setExpanded] = useState(false);
+  const maxLength = 80;
+
+  if (text.length <= maxLength) {
+    return <CaptionContainer expanded>{text}</CaptionContainer>;
+  }
 
   return (
-    <div className="flex flex-column align-items-center pt-6">
-      <div className="p-fluid" style={{ width: "600px" }}>
-        <h2>Criar Nova Postagem</h2>
-        <div className="field mb-3">
-          <label htmlFor="title">Título</label>
-          <InputText
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-
-        <div className="field mb-3">
-          <label htmlFor="content">Conteúdo</label>
-          <InputTextarea
-            id="content"
-            rows={5}
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
-        </div>
-
-        <Button label="Publicar" icon="pi pi-check" onClick={handleSubmit} />
-      </div>
-    </div>
+    <CaptionContainer expanded={expanded}>
+      {expanded ? text : text.slice(0, maxLength) + "..."}
+      <ReadMoreButton onClick={() => setExpanded(!expanded)}>
+        {expanded ? "Ler menos" : "Ler mais"}
+      </ReadMoreButton>
+    </CaptionContainer>
   );
 }
 
-export default NewPost;
+// 🔹 Página
+export default function Profile() {
+  const [tab, setTab] = useState("posts");
+  const [textPosts, setTextPosts] = useState([]);
+  const [mediaPosts, setMediaPosts] = useState([]);
+  const [stories, setStories] = useState([]);
+
+  return (
+    <ProfilePage>
+      <Menu />
+      <Container style={{ paddingTop: "0" }}>
+        <Header>
+          <Info>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              {/* Aqui você pode adicionar nome, bio, etc */}
+            </div>
+          </Info>
+        </Header>
+
+        <Tabs>
+          <TabButton onClick={() => setTab("posts")} active={tab === "posts"}>
+            POSTS
+          </TabButton>
+          <TabButton onClick={() => setTab("textos")} active={tab === "textos"}>
+            TEXTOS
+          </TabButton>
+        </Tabs>
+
+        {tab === "posts" && (
+          <MediaPosts mediaPosts={mediaPosts} setMediaPosts={setMediaPosts} />
+        )}
+
+        {tab === "textos" && (
+          <TextPosts textPosts={textPosts} setTextPosts={setTextPosts} />
+        )}
+      </Container>
+    </ProfilePage>
+  );
+}
