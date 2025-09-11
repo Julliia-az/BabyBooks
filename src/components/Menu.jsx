@@ -1,9 +1,10 @@
 import { Menubar } from "primereact/menubar";
 import { InputText } from "primereact/inputtext";
 import { Badge } from "primereact/badge";
+import { Button } from "primereact/button";
 import { useNavigate } from "react-router-dom";
 
-function Menu() {
+function Menu({ darkMode, setDarkMode }) {
   const navigate = useNavigate();
 
   const itemRenderer = (item) => (
@@ -11,58 +12,33 @@ function Menu() {
       <span className={item.icon} />
       <span className="mx-2">{item.label}</span>
       {item.badge && <Badge className="ml-auto" value={item.badge} />}
-      {item.shortcut && (
-        <span className="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
-          {item.shortcut}
-        </span>
-      )}
     </a>
   );
+
   const items = [
-    {
-      //label: "Home",
-      icon: "pi pi-home",
-      command: () => navigate("/"),
-    },
-    {
-      //label: "User",
-      icon: "pi pi-user",
-      command: () => navigate("/perfil"),
-    },
-    {
-      //label: "Contact",
-      icon: "pi pi-bell",
-      badge: 1,
-      template: itemRenderer,
-    },
-    {
-      icon: "pi pi-plus-circle",
-      command: () => navigate("/NewPost"),
-    },
+    { icon: "pi pi-home", command: () => navigate("/") },
+    { icon: "pi pi-user", command: () => navigate("/perfil") },
+    { icon: "pi pi-bell", badge: 1, template: itemRenderer },
+    { icon: "pi pi-plus-circle", command: () => navigate("/newPost") },
   ];
 
   const start = (
-    <img
-      alt="logo"
-      src="src/imagens/Logo.png"
-      height="45"
-      className="mr-2"
-    ></img>
+    <img alt="logo" src="src/imagens/Logo.png" height="45" className="mr-2" />
   );
+
   const end = (
-    <div className="flex align-items-center gap-2">
+    <div className="flex align-items-center gap-3">
       <InputText
         placeholder="Search"
         type="text"
         className="w-8rem sm:w-auto"
         style={{
           backgroundColor: "#cb9383",
-          borderRadius: "30",
+          borderRadius: "30px",
           height: "40px",
           width: "200px",
         }}
       />
-      {/* <Avatar icon="pi pi-user" /> */}
     </div>
   );
 

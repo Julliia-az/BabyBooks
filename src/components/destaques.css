@@ -1,18 +1,9 @@
 .highlights {
-  position: fixed;       
-  top: 80px;             
-  left: 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;              
-  padding: 10px 5px;
-  width: 90px;            
-  height: calc(100% - 80px); 
-  border-right: 1px solid #eee; 
-  z-index: 1000;
+  justify-content: space-around;
+  margin: 15px 0;
+  width: 100%;
 }
-
 
 .highlight-circle {
   display: flex;
@@ -133,4 +124,3 @@
     display: block;
   }
 }
- 

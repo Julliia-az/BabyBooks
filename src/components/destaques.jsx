@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Stories from "react-insta-stories";
-import "./stories.css";
+import "./destaques.css";
 
 export default function HighlightStories({ stories: newStories }) {
   const [activeStories, setActiveStories] = useState(null);
@@ -9,32 +9,39 @@ export default function HighlightStories({ stories: newStories }) {
   // Stories fixos
   const highlights = [
     {
-      title: " ",
-      thumb: "src/imagens/coelinhas.jpg",
+      title: "DIÁRIO",
+      thumb: "src/imagens/ultrassom.jpg",
       stories: [
-        { url: "src/imagens/coelhinhas.jpg" },
-        { url: "src/imagens/logo.jpg" },
+        { url: "src/imagens/ultrassom.jpg" },
+        { url: "src/imagens/maos.jpg" },
         { url: "src/imagens/bbCozinhando.jpg" },
       ],
     },
     {
-      title: " ",
+      title: "MESES",
       thumb: "src/imagens/bebeEstudio2.jpg",
       stories: [
-        { url: "src/imagens/girafa.jpg" },
+        { url: "src/imagens/bebeEstudio2.jpg" },
         { url: "src/imagens/bbEstudio.jpg" },
         { url: "src/imagens/girafa.jpg" },
       ],
     },
     {
-      title: " ",
+      title: "PASSEIOS",
       thumb: "src/imagens/AnaParque.jpg",
-      stories: [
-        { url: "src/imagens/AnaParque.jpg" },
-        { url: "src/imagens/2bebes.jpg" }
-      ],
+      stories: [{ url: "src/imagens/AnaParque.jpg" }],
     },
   ];
+
+  // Adiciona novos stories passados via props
+  const allHighlights = [...highlights];
+  if (newStories && newStories.length > 0) {
+    allHighlights.push({
+      title: "NOVOS",
+      thumb: newStories[0].url,
+      stories: newStories,
+    });
+  }
 
   const closeStories = () => {
     setActiveStories(null);
@@ -64,7 +71,7 @@ export default function HighlightStories({ stories: newStories }) {
 
   return (
     <div className="highlights">
-      {highlights.map((highlight, index) => (
+      {allHighlights.map((highlight, index) => (
         <div
           key={index}
           className="highlight-circle"

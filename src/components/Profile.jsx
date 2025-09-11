@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ScrollPanel } from "primereact/scrollpanel";
 import "primeicons/primeicons.css";
-import HighlightStories from "./stories";
+import HighlightDestaques from "./destaques"; // import do componente de stories
 import Menu from "./Menu";
 import styled from "styled-components";
 import TextPosts from "./Posts/TextPost.jsx";
@@ -15,193 +15,131 @@ import bbColo from "../imagens/bbColo.jpg";
 const avatarUrl = bbColo;
 
 // 🔹 Styled Components
-const ProfilePage = styled.div`
-  min-height: 100vh;
-  background: ${({ theme }) => theme.body};
-  color: ${({ theme }) => theme.text};
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
-`;
-
 const Container = styled.div`
-  max-width: 935px;
+  max-width: 980px;
   margin: 0 auto;
-  padding: 16px;
-
-  @media (min-width: 768px) {
-    padding: 30px 20px;
-  }
+  padding: 20px;
 `;
 
 const Header = styled.header`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 8px;
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 50px;
-  }
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 12px 0;
+  flex-wrap: wrap;
 `;
 
 const AvatarWrapper = styled.div`
   position: relative;
-  display: inline-block;
-`;
-
-const Avatar = styled.img`
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid white;
-
-  @media (min-width: 768px) {
-    width: 150px;
-    height: 150px;
-  }
-`;
-
-const AddStoryButton = styled.label`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background: #c97d68;
-  color: white;
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
+  width: 120px;
+  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  font-weight: bold;
-  border: 2px solid white;
-  cursor: pointer;
-  transition: 0.2s;
+`;
 
-  &:hover {
-    background: #a65e4f;
-  }
+const Avatar = styled.img`
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid rgba(0,0,0,0.06);
+`;
+
+/* botão que abre o input file */
+const AddStoryButton = styled.label`
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #cb9383;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 `;
 
 const Info = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-
-  @media (min-width: 768px) {
-    align-items: flex-start;
-    gap: 20px;
-  }
+  gap: 8px;
 `;
 
-const Username = styled.h1`
-  font-size: 20px;
-  font-weight: 300;
-  color: ${({ theme }) => theme.text};
-
-  @media (min-width: 768px) {
-    font-size: 28px;
-  }
+const Username = styled.h3`
+  margin: 0;
+  font-size: 18px;
 `;
 
 const FollowButton = styled(motion.button)`
-  padding: 6px 16px;
-  font-size: 14px;
+  padding: 8px 12px;
   border-radius: 8px;
-  border: 1px solid #dbdbdb;
+  border: none;
   cursor: pointer;
-  background: #c97d68;
-  color: white;
   font-weight: 600;
-  transition: 0.3s;
-
-  &.following {
-    background: #c97d68;
-    color: white;
-    border-color: #c97d68;
-  }
-
-  &:hover {
-    background: #c6cdbc;
-  }
+  background: ${({ className }) =>
+    className && className.includes("following") ? "transparent" : "#c97d68"};
+  color: ${({ className }) =>
+    className && className.includes("following") ? "#000" : "#fff"};
 `;
 
+/* stats e bio */
 const Stats = styled.div`
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  gap: 16px;
   font-size: 14px;
-  width: 100%;
-  padding: 12px 0;
-  border-top: 1px solid #dbdbdb;
-  border-bottom: 1px solid #dbdbdb;
-
-  @media (min-width: 768px) {
-    justify-content: flex-start;
-    border: none;
-    padding: 0;
-    gap: 40px;
-    font-size: 16px;
-  }
+  align-items: center;
 `;
 
 const Bio = styled.div`
+  margin-top: 6px;
   font-size: 14px;
-  text-align: center;
-
-  @media (min-width: 768px) {
-    text-align: left;
-    font-size: 16px;
-  }
 `;
 
+/* tabs */
 const Tabs = styled.div`
   display: flex;
-  justify-content: center;
-  border-top: 1px solid #dbdbdb;
-  margin-top: 15px;
+  gap: 8px;
+  margin-top: 18px;
 `;
 
 const TabButton = styled.button`
-  flex: 1;
-  max-width: 250px;
-  padding: 12px;
-  font-size: 13px;
-  border: none;
   background: none;
+  border: none;
+  padding: 8px 12px;
   cursor: pointer;
-  font-weight: 600;
-  color: ${({ active, theme }) => (active ? theme.text : "#8e8e8e")};
-  letter-spacing: 1px;
-  border-top: ${({ active }) => (active ? "1px solid #262626" : "none")};
+  font-weight: ${({ active }) => (active ? 700 : 500)};
+  border-bottom: ${({ active }) => (active ? "2px solid #000" : "none")};
 `;
 
 const CaptionContainer = styled.div`
-  padding: 4px 6px;
-  font-size: 13px;
-  text-align: center;
-  background-color: ${({ theme }) => theme.body};
-  font-family: monospace;
-  max-height: ${({ expanded }) => (expanded ? "none" : "40px")};
-  overflow: hidden;
-  position: relative;
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.4;
 `;
 
-const ReadMoreButton = styled.span`
-  display: block;
-  margin-top: 4px;
+const ReadMoreButton = styled.button`
+  margin-left: 8px;
+  background: none;
+  border: none;
   color: #c97d68;
-  font-weight: bold;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  &:hover { text-decoration: underline; }
+`;
+
+const ProfilePage = styled.div`
+  min-height: 100vh;
+  background: ${({ theme }) => theme.body};
+  color: ${({ theme }) => theme.text};
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
 `;
 
 function PostCaption({ text }) {
@@ -228,7 +166,23 @@ export default function Profile() {
   const [tab, setTab] = useState("posts");
   const [textPosts, setTextPosts] = useState([]);
   const [mediaPosts, setMediaPosts] = useState([]);
-  const [stories, setStories] = useState([]);
+  const [stories, setStories] = useState([
+    {
+      title: "DIÁRIO",
+      thumb: "src/imagens/ultrassom.jpg",
+      stories: [
+        { url: "src/imagens/ultrassom.jpg" },
+        { url: "src/imagens/ultrassom2.jpg" },
+      ],
+    },
+    {
+      title: "FAMÍLIA",
+      thumb: "src/imagens/familia.jpg",
+      stories: [{ url: "src/imagens/familia.jpg" }],
+    },
+  ]);
+
+    const destaques = stories;
 
   function handleStoryChange(e) {
     const file = e.target.files[0];
@@ -239,7 +193,8 @@ export default function Profile() {
 
   return (
     <ProfilePage>
-      <Menu />
+      <Menu /> 
+
       <Container style={{ paddingTop: "0" }}>
         <Header>
           <AvatarWrapper>
@@ -284,9 +239,8 @@ export default function Profile() {
               <p>Diário de aventuras e descobertas da minha pequena Ana! 💖</p>
             </Bio>
           </Info>
-        </Header>
-
-        <HighlightStories stories={stories} />
+        </Header>       
+        <HighlightDestaques stories={destaques} style={{ width: '100%' }} />
 
         <Tabs>
           <TabButton onClick={() => setTab("posts")} active={tab === "posts"}>
