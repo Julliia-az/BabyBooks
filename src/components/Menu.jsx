@@ -28,17 +28,7 @@ function Menu({ darkMode, setDarkMode }) {
 
   const end = (
     <div className="flex align-items-center gap-3">
-      <InputText
-        placeholder="Search"
-        type="text"
-        className="w-8rem sm:w-auto"
-        style={{
-          backgroundColor: "#cb9383",
-          borderRadius: "30px",
-          height: "40px",
-          width: "200px",
-        }}
-      />
+     
     </div>
   );
 

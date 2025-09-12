@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import Stories from "react-insta-stories";
 import "./destaques.css";
 
-export default function HighlightStories({ stories: newStories }) {
+export default function Destaques({ stories = [] }) {
   const [activeStories, setActiveStories] = useState(null);
   const [storyIndex, setStoryIndex] = useState(0);
 
-  // Stories fixos
+  // 🔹 Destaques fixos
   const highlights = [
     {
       title: "DIÁRIO",
       thumb: "src/imagens/ultrassom.jpg",
       stories: [
         { url: "src/imagens/ultrassom.jpg" },
-        { url: "src/imagens/maos.jpg" },
         { url: "src/imagens/bbCozinhando.jpg" },
+        { url: "src/imagens/coelinhas.jpg" },
+
       ],
     },
     {
@@ -24,24 +25,30 @@ export default function HighlightStories({ stories: newStories }) {
         { url: "src/imagens/bebeEstudio2.jpg" },
         { url: "src/imagens/bbEstudio.jpg" },
         { url: "src/imagens/girafa.jpg" },
+
       ],
     },
     {
       title: "PASSEIOS",
-      thumb: "src/imagens/AnaParque.jpg",
-      stories: [{ url: "src/imagens/AnaParque.jpg" }],
+      thumb: "src/imagens/2bebes.jpg",
+      stories: [{ url: "src/imagens/2bebes.jpg" }],
     },
   ];
 
-  // Adiciona novos stories passados via props
-  const allHighlights = [...highlights];
-  if (newStories && newStories.length > 0) {
-    allHighlights.push({
-      title: "NOVOS",
-      thumb: newStories[0].url,
-      stories: newStories,
-    });
-  }
+  // 🔹 Adiciona stories enviados pelo Profile
+  const userHighlight =
+    stories.length > 0
+      ? [
+          {
+            title: "Meus Stories",
+            thumb: stories[0].url, // usa o primeiro como thumb
+            stories: stories.map((s) => ({ url: s.url })),
+          },
+        ]
+      : [];
+
+  // 🔹 Junta os stories dinâmicos com os fixos
+  const allHighlights = [...userHighlight, ...highlights];
 
   const closeStories = () => {
     setActiveStories(null);
@@ -107,6 +114,7 @@ export default function HighlightStories({ stories: newStories }) {
               />
             </div>
 
+            {/* Botões para desktop */}
             <button className="prev-btn" onClick={prevStory}>
               ‹
             </button>

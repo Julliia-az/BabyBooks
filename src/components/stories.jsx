@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Stories from "react-insta-stories";
-import "./stories.css";
 
 export default function HighlightStories({ stories: newStories }) {
   const [activeStories, setActiveStories] = useState(null);
@@ -9,16 +8,21 @@ export default function HighlightStories({ stories: newStories }) {
   // Stories fixos
   const highlights = [
     {
-      title: " ",
+      title: "@mamãe_da_Malu",
       thumb: "src/imagens/coelinhas.jpg",
       stories: [
         { url: "src/imagens/coelhinhas.jpg" },
-        { url: "src/imagens/logo.jpg" },
         { url: "src/imagens/bbCozinhando.jpg" },
+      ],
+    },{
+      title: "mamãe_Clarinha",
+      thumb: "src/imagens/girafa.jpg",
+      stories: [
+        { url: "src/imagens/coelhinhas.jpg" },
       ],
     },
     {
-      title: " ",
+      title: "@MyBabyStory",
       thumb: "src/imagens/bebeEstudio2.jpg",
       stories: [
         { url: "src/imagens/girafa.jpg" },
@@ -27,11 +31,10 @@ export default function HighlightStories({ stories: newStories }) {
       ],
     },
     {
-      title: " ",
-      thumb: "src/imagens/AnaParque.jpg",
+      title: "@papai_Anthony ",
+      thumb: "src/imagens/2bebes.jpg",
       stories: [
-        { url: "src/imagens/AnaParque.jpg" },
-        { url: "src/imagens/2bebes.jpg" }
+        { url: "src/imagens/2bebes.jpg" },
       ],
     },
   ];
@@ -63,7 +66,7 @@ export default function HighlightStories({ stories: newStories }) {
   };
 
   return (
-    <div className="highlights">
+    <div className="highlights" style={{ flexDirection: "column", position: "fixed", top: "80px", left:"0", display: "flex", flexDirection: "column", alignItems: "center", gap: "15px", padding: "10px 5px", width: "90px", height:"calc(100%-80px)", borderRight: "1px solid #eee", zIndex: "1000" }}>
       {highlights.map((highlight, index) => (
         <div
           key={index}

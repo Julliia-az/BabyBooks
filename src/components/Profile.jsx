@@ -1,11 +1,11 @@
+import React, { useState } from "react";
 import { Menubar } from "primereact/menubar";
 import { InputText } from "primereact/inputtext";
 import { Badge } from "primereact/badge";
-import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ScrollPanel } from "primereact/scrollpanel";
 import "primeicons/primeicons.css";
-import HighlightDestaques from "./destaques"; // import do componente de stories
+import Destaques from "./destaques";
 import Menu from "./Menu";
 import styled from "styled-components";
 import TextPosts from "./Posts/TextPost.jsx";
@@ -18,15 +18,23 @@ const avatarUrl = bbColo;
 const Container = styled.div`
   max-width: 980px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 60px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;
 
-const Header = styled.header`
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  padding: 12px 0;
-  flex-wrap: wrap;
+const ProfileInfoWrapper = styled.div`
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 const AvatarWrapper = styled.div`
@@ -43,16 +51,15 @@ const Avatar = styled.img`
   height: 100px;
   object-fit: cover;
   border-radius: 50%;
-  border: 3px solid rgba(0,0,0,0.06);
+  border: 3px solid rgba(0, 0, 0, 0.06);
 `;
 
-/* botão que abre o input file */
 const AddStoryButton = styled.label`
   position: absolute;
   bottom: -6px;
   right: -6px;
-  width: 32px;
-  height: 32px;
+  width: 27px;
+  height: 27px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -61,14 +68,19 @@ const AddStoryButton = styled.label`
   background: #cb9383;
   color: #fff;
   font-weight: 700;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 `;
 
-const Info = styled.div`
+const UserInfo = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    gap: 10px;
+  }
 `;
 
 const Username = styled.h3`
@@ -81,31 +93,36 @@ const FollowButton = styled(motion.button)`
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 60;
+  height: 32px;
   background: ${({ className }) =>
     className && className.includes("following") ? "transparent" : "#c97d68"};
   color: ${({ className }) =>
-    className && className.includes("following") ? "#000" : "#fff"};
+    className && className.includes("following") ? "#transparent" : "#fff"};
+  &:hover { background: #c6cdbc; }
 `;
 
-/* stats e bio */
 const Stats = styled.div`
   display: flex;
   gap: 16px;
   font-size: 14px;
   align-items: center;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
 `;
 
 const Bio = styled.div`
-  margin-top: 6px;
+  margin-top: 4px;
   font-size: 14px;
+  width: 100%;
 `;
 
-/* tabs */
 const Tabs = styled.div`
   display: flex;
-  gap: 8px;
-  margin-top: 18px;
+  gap: 6px;
+  margin-top: 15px;
 `;
 
 const TabButton = styled.button`
@@ -131,7 +148,9 @@ const ReadMoreButton = styled.button`
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  &:hover { text-decoration: underline; }
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const ProfilePage = styled.div`
@@ -166,23 +185,9 @@ export default function Profile() {
   const [tab, setTab] = useState("posts");
   const [textPosts, setTextPosts] = useState([]);
   const [mediaPosts, setMediaPosts] = useState([]);
-  const [stories, setStories] = useState([
-    {
-      title: "DIÁRIO",
-      thumb: "src/imagens/ultrassom.jpg",
-      stories: [
-        { url: "src/imagens/ultrassom.jpg" },
-        { url: "src/imagens/ultrassom2.jpg" },
-      ],
-    },
-    {
-      title: "FAMÍLIA",
-      thumb: "src/imagens/familia.jpg",
-      stories: [{ url: "src/imagens/familia.jpg" }],
-    },
-  ]);
+  const [stories, setStories] = useState([]);
 
-    const destaques = stories;
+  const destaques = stories;
 
   function handleStoryChange(e) {
     const file = e.target.files[0];
@@ -193,10 +198,11 @@ export default function Profile() {
 
   return (
     <ProfilePage>
-      <Menu /> 
+      <Menu />
 
-      <Container style={{ paddingTop: "0" }}>
-        <Header>
+      <Container style={{ paddingTop: "6rem" }}>
+        {/* Seção do Perfil */}
+        <ProfileInfoWrapper>
           <AvatarWrapper>
             <Avatar src={avatarUrl} alt="avatar" />
             <input
@@ -209,8 +215,10 @@ export default function Profile() {
             <AddStoryButton htmlFor="storyInput">+</AddStoryButton>
           </AvatarWrapper>
 
-          <Info>
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          <UserInfo>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+            >
               <Username>@mamãe.da.ana</Username>
               <FollowButton
                 onClick={() => setFollowing(!following)}
@@ -233,15 +241,18 @@ export default function Profile() {
                 <b>231</b> seguindo
               </span>
             </Stats>
+          </UserInfo>
+        </ProfileInfoWrapper>
 
-            <Bio>
-              <h2>Mamãe da Ana</h2>
-              <p>Diário de aventuras e descobertas da minha pequena Ana! 💖</p>
-            </Bio>
-          </Info>
-        </Header>       
-        <HighlightDestaques stories={destaques} style={{ width: '100%' }} />
+        <Bio>
+          <h2>Mamãe da Ana</h2>
+          <p>Diário de aventuras e descobertas da minha pequena Ana! 💖</p>
+        </Bio>
 
+        {/* Destaques */}
+        <Destaques stories={destaques} />
+
+        {/* Tabs e Posts */}
         <Tabs>
           <TabButton onClick={() => setTab("posts")} active={tab === "posts"}>
             POSTS
@@ -254,7 +265,6 @@ export default function Profile() {
         {tab === "posts" && (
           <MediaPosts mediaPosts={mediaPosts} setMediaPosts={setMediaPosts} />
         )}
-
         {tab === "textos" && (
           <TextPosts textPosts={textPosts} setTextPosts={setTextPosts} />
         )}

@@ -12,7 +12,7 @@ export const light = {
 };
 
 export const dark = {
-  body: "#111",
+  body: "#191818ff",
   text: "#fafafa",
   detail: "#e0e0e0",
   border: "#333",
@@ -22,7 +22,7 @@ export const dark = {
   primaryHover: "#a86b58",
 };
 
-// 🎨 Styled-components que usam o tema
+// Styled-components que usam o tema
 export const FollowButton = styled.button`
   padding: 6px 16px;
   font-size: 14px;

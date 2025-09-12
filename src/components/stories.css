@@ -1,4 +1,4 @@
-.highlights {
+/*.highlights {
   position: fixed;       
   top: 80px;             
   left: 0;
@@ -61,7 +61,8 @@
 }
 
 /* Container responsivo */
-.stories-container {
+/*.stories-container {
+  flex-direction: row !important;
   position: relative;
   width: 90%;
   max-width: 450px;
@@ -113,7 +114,7 @@
   cursor: pointer;
   z-index: 10;
   display: none; /* Esconde para mobile */
-}
+/*}
 
 .prev-btn {
   left: 10px;
