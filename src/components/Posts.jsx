@@ -4,12 +4,12 @@ import { Button } from "primereact/button";
 function Posts({ posts }) {
   const footer = (
     <>
-      <Button label="Like" icon="pi pi-thumbs-up" />
+      <Button label="Like" icon="pi pi-thumbs-up" style={{backgroundColor:"#c97d68"}}/>
       <Button
         label="Comment"
         severity="secondary"
         icon="pi pi-comment"
-        style={{ marginLeft: "0.5em" }}
+        style={{ marginLeft: "0.5em", backgroundColor:"#c6cdbc"}}
       />
     </>
   );

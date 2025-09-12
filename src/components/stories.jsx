@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Stories from "react-insta-stories";
+import "./stories.css"
 
 export default function HighlightStories({ stories: newStories }) {
   const [activeStories, setActiveStories] = useState(null);
@@ -66,7 +67,7 @@ export default function HighlightStories({ stories: newStories }) {
   };
 
   return (
-    <div className="highlights" style={{ flexDirection: "column", position: "fixed", top: "80px", left:"0", display: "flex", flexDirection: "column", alignItems: "center", gap: "15px", padding: "10px 5px", width: "90px", height:"calc(100%-80px)", borderRight: "1px solid #eee", zIndex: "1000" }}>
+    <div className="highlights">
       {highlights.map((highlight, index) => (
         <div
           key={index}
