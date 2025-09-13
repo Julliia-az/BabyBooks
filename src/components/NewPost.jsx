@@ -1,113 +1,120 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Menu from "./Menu";
 import TextPosts from "./Posts/TextPost.jsx";
 
-// 🔹 Styled Components
 const Container = styled.div`
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 60px 20px 20px;
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  background: #c6cdbc;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  z-index: 2;
+  @media (min-width: 768px) {
+    padding: 30px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 80%;
+  }
 `;
 
 const PostCard = styled.div`
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 18px;
   background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s, box-shadow 0.15s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
 `;
 
 const PostTitle = styled.h3`
-  margin: 0 0 6px;
-  font-size: 18px;
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
 `;
 
 const PostUser = styled.p`
   margin: 0;
   font-size: 14px;
-  color: gray;
+  color: #888;
 `;
 
 const PostContent = styled.p`
   margin: 12px 0;
-  font-size: 15px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #444;
 `;
 
 const Actions = styled.div`
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 12px;
+  margin-top: 12px;
 `;
 
 const Button = styled.button`
-  padding: 8px 14px;
+  padding: 10px 18px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
   display: flex;
   align-items: center;
   gap: 6px;
+  transition: background 0.2s;
 
   &.like {
     background: #c97d68;
     color: white;
+  }
+  &.like:hover {
+    background: #b06b59;
   }
 
   &.comment {
     background: #c97d68;
     color: white;
   }
+  &.comment:hover {
+    background: #b06b59;
+  }
 `;
 
-export default function NewPost({ addPost }) {
-  const [tab, setTab] = useState("textos");
+export default function NewPost() {
+  const [tab] = useState("textos");
   const [textPosts, setTextPosts] = useState([]);
-  const [mediaPosts, setMediaPosts] = useState([]);
-  const [posts, setPosts] = useState([ ]);
+  const [posts] = useState([]);
 
   return (
-    <div>
-      <Menu />
-      <Container>
+    <Container>
+      {tab === "textos" && (
+        <>
+          {posts.map((post, index) => (
+            <PostCard key={index}>
+              <PostTitle>{post.title}</PostTitle>
+              <PostUser>{post.user}</PostUser>
+              <PostContent>{post.content}</PostContent>
+              <Actions>
+                <Button className="like">Like</Button>
+                <Button className="comment">Comment</Button>
+              </Actions>
+            </PostCard>
+          ))}
 
-        {/* Tabs */}
-        <div style={{ display: "flex", gap: "6px", marginBottom: "10px" }}>
-          <button
-            onClick={() => setTab("textos")}
-            style={{
-              fontWeight: tab === "textos" ? 700 : 500,
-              borderBottom: tab === "textos" ? "2px solid #000" : "none",
-            }}
-          >
-            TEXTO
-          </button>
-        </div>
-
-        {/* Conteúdo da aba */}
-        {tab === "textos" && (
-          <>
-            {posts.map((post, index) => (
-              <PostCard key={index}>
-                <PostTitle>{post.title}</PostTitle>
-                <PostUser>{post.user}</PostUser>
-                <PostContent>{post.content}</PostContent>
-                <Actions>
-                  <Button className="like"> Like</Button>
-                  <Button className="comment"> Comment</Button>
-                </Actions>
-              </PostCard>
-            ))}
-
-            <TextPosts textPosts={textPosts} setTextPosts={setTextPosts} />
-          </>
-        )}
-      </Container>
-    </div>
+          <TextPosts textPosts={textPosts} setTextPosts={setTextPosts} />
+        </>
+      )}
+    </Container>
   );
 }

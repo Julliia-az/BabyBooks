@@ -1,11 +1,11 @@
-.highlights {
+.highlights-d {
   display: flex;
   justify-content: space-around;
   margin: 15px 0;
   width: 100%;
 }
 
-.highlight-circle {
+.highlight-d-circle {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,11 +13,11 @@
   transition: transform 0.2s;
 }
 
-.highlight-circle:hover {
+.highlight-d-circle:hover {
   transform: scale(1.1);
 }
 
-.highlight-circle img {
+.highlight-d-circle img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -26,18 +26,18 @@
   transition: border 0.3s;
 }
 
-.highlight-circle img:hover {
+.highlight-d-circle img:hover {
   border-color: #edccb4;
 }
 
-.highlight-title {
+.highlight-d-title {
   margin-top: 6px;
   font-size: 12px;
   font-weight: 600;
   text-align: center;
 }
 
-.stories-overlay {
+.stories-d-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -52,7 +52,7 @@
 }
 
 /* Container responsivo */
-.stories-container {
+.stories-d-container {
   position: relative;
   width: 90%;
   max-width: 450px;
@@ -64,12 +64,12 @@
   cursor: pointer;
 }
 
-.stories-wrapper {
+.stories-d-wrapper {
   width: 100%;
   height: 100%;
 }
 
-.close-btn {
+.close-d-btn {
   position: absolute;
   top: 15px;
   right: 15px;
@@ -85,12 +85,12 @@
   transition: background 0.2s;
 }
 
-.close-btn:hover {
+.close-d-btn:hover {
   background: rgba(0, 0, 0, 0.6);
 }
 
-.prev-btn,
-.next-btn {
+.prev-d-btn,
+.next-d-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -106,22 +106,22 @@
   display: none; /* Esconde para mobile */
 }
 
-.prev-btn {
+.prev-d-btn {
   left: 10px;
 }
-.next-btn {
+.next-d-btn {
   right: 10px;
 }
 
-.prev-btn:hover,
-.next-btn:hover {
+.prev-d-btn:hover,
+.next-d-btn:hover {
   background: rgba(0, 0, 0, 0.5);
 }
 
 /* Mostra os botões em telas grandes */
 @media (min-width: 768px) {
-  .prev-btn,
-  .next-btn {
+  .prev-d-btn,
+  .next-d-btn {
     display: block;
   }
 }

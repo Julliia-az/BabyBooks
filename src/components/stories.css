@@ -1,45 +1,28 @@
-.highlights {
-  position: fixed;       
-  top: 80px;             
-  left: 12px;
+.highlights-s {
+  position: fixed;
+  top: 50px;
+  left: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;              
-  padding: 10px 5px;
-  width: 90px;            
-  height: calc(100% - 80px); 
-  z-index: 1000;
+  gap: 5px;
+  width: 90px;
+  height: calc(100% - 80px);
+  z-index: 1;
+  margin-top: 4rem;
 }
 
-@media screen and (max-width: 900px) {
-  .highlights{
-      position: fixed;      
-    top: 120px;            
-    left: 12px;   
-    width: 100%;     
-    height: 50px;      
-    flex-direction: row;
-    padding: 0 10px;
-    border-right: none; 
-    align-items: center;
-    gap: 5px;
-  }
-}
-
-/*.highlight-circle {
+.highlight-s-circle {
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
   transition: transform 0.2s;
 }
-
-.highlight-circle:hover {
+.highlight-s-circle:hover {
   transform: scale(1.1);
 }
-
-.highlight-circle img {
+.highlight-s-circle img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -47,19 +30,19 @@
   object-fit: cover;
   transition: border 0.3s;
 }
-
-.highlight-circle img:hover {
+.highlight-s-circle img:hover {
   border-color: #edccb4;
 }
 
-.highlight-title {
+.highlight-s-title {
   margin-top: 6px;
   font-size: 12px;
   font-weight: 600;
   text-align: center;
+  margin-bottom: 6rem;
 }
 
-.stories-overlay {
+.stories-s-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -72,10 +55,7 @@
   align-items: center;
   padding: 10px;
 }
-
-/* Container responsivo */
-/*.stories-container {
-  flex-direction: row !important;
+.stories-s-container {
   position: relative;
   width: 90%;
   max-width: 450px;
@@ -87,12 +67,12 @@
   cursor: pointer;
 }
 
-.stories-wrapper {
+.stories-s-wrapper {
   width: 100%;
   height: 100%;
 }
 
-.close-btn {
+.close-s-btn {
   position: absolute;
   top: 15px;
   right: 15px;
@@ -108,12 +88,12 @@
   transition: background 0.2s;
 }
 
-.close-btn:hover {
+.close-s-btn:hover {
   background: rgba(0, 0, 0, 0.6);
 }
 
-.prev-btn,
-.next-btn {
+.prev-s-btn,
+.next-s-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -127,24 +107,43 @@
   cursor: pointer;
   z-index: 10;
   display: none; /* Esconde para mobile */
-/*}
+}
 
-.prev-btn {
+.prev-s-btn {
   left: 10px;
 }
-.next-btn {
+.next-s-btn {
   right: 10px;
 }
 
-.prev-btn:hover,
-.next-btn:hover {
+.prev-s-btn:hover,
+.next-s-btn:hover {
   background: rgba(0, 0, 0, 0.5);
 }
 
+/* Mostra os botões em telas grandes */
 @media (min-width: 768px) {
-  .prev-btn,
-  .next-btn {
+  .prev-s-btn,
+  .next-s-btn {
     display: block;
   }
 }
- 
+
+@media screen and (max-width: 900px) {
+  .highlights-s {
+    position: sticky;
+    top: 120px;
+    left: 12px;
+    width: 100%;
+    height: 50px;
+    flex-direction: row;
+    padding: 0 10px;
+    border-right: none;
+    align-items: center;
+    align-content: center;
+    gap: 15px;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+  }
+}

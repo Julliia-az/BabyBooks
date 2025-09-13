@@ -15,7 +15,6 @@ export default function Destaques({ stories = [] }) {
         { url: "src/imagens/ultrassom.jpg" },
         { url: "src/imagens/bbCozinhando.jpg" },
         { url: "src/imagens/coelinhas.jpg" },
-
       ],
     },
     {
@@ -25,7 +24,6 @@ export default function Destaques({ stories = [] }) {
         { url: "src/imagens/bebeEstudio2.jpg" },
         { url: "src/imagens/bbEstudio.jpg" },
         { url: "src/imagens/girafa.jpg" },
-
       ],
     },
     {
@@ -77,32 +75,30 @@ export default function Destaques({ stories = [] }) {
   };
 
   return (
-    <div className="highlights">
+    <div className="highlights-d">
       {allHighlights.map((highlight, index) => (
         <div
           key={index}
-          className="highlight-circle"
+          className="highlight-d-circle"
           onClick={() => setActiveStories(highlight.stories)}
         >
           <img src={highlight.thumb} alt={highlight.title} />
-          <p className="highlight-title">{highlight.title}</p>
+          <p className="highlight-d-title">{highlight.title}</p>
         </div>
       ))}
 
       {activeStories && (
-        <div className="stories-overlay">
-          <div className="stories-container" onClick={handleTap}>
+        <div className="stories-d-overlay">
+          <div className="stories-d-container" onClick={handleTap}>
             <button
-              className="close-btn"
+              className="close-d-btn"
               onClick={(e) => {
                 e.stopPropagation();
                 closeStories();
               }}
-            >
-              ×
-            </button>
+            ></button>
 
-            <div className="stories-wrapper">
+            <div className="stories-d-wrapper">
               <Stories
                 stories={activeStories}
                 defaultInterval={5000}
@@ -115,10 +111,10 @@ export default function Destaques({ stories = [] }) {
             </div>
 
             {/* Botões para desktop */}
-            <button className="prev-btn" onClick={prevStory}>
+            <button className="prev-d-btn" onClick={prevStory}>
               ‹
             </button>
-            <button className="next-btn" onClick={nextStory}>
+            <button className="next-d-btn" onClick={nextStory}>
               ›
             </button>
           </div>

@@ -73,15 +73,13 @@ function Home() {
 
   return (
     <PageContainer>
-      <Menu /> {/* Caso o Menu seja fixo, use position: fixed no componente Menu */}
+      <Menu />{" "}
       <ContentContainer>
         <HighlightStories stories={stories} />
         <MainContent>
-          <Routes>
-            <Route path="/" element={<Posts posts={posts} />} />
-            <Route path="/newpost" element={<NewPost addPost={addPost} />} />
-            <Route path="/perfil" element={<Profile />} />
-          </Routes>
+          {/* Renderiza o NewPost diretamente */}
+          <NewPost addPost={addPost} />
+          {/* Renderiza a lista de posts */}
         </MainContent>
       </ContentContainer>
     </PageContainer>

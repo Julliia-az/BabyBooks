@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Stories from "react-insta-stories";
-import "./stories.css"
+import "./stories.css";
 
-export default function HighlightStories({ stories: newStories }) {
+export default function HighlightStories() {
   const [activeStories, setActiveStories] = useState(null);
   const [storyIndex, setStoryIndex] = useState(0);
 
@@ -11,29 +11,22 @@ export default function HighlightStories({ stories: newStories }) {
     {
       title: "@mamãe_da_Malu",
       thumb: "src/imagens/coelinhas.jpg",
-      stories: [
-        { url: "src/imagens/coelinhas.jpg" },
-      ],
-    },{
+      stories: [{ url: "src/imagens/coelinhas.jpg" }],
+    },
+    {
       title: "mamãe_Clarinha",
       thumb: "src/imagens/girafa.jpg",
-      stories: [
-        { url: "src/imagens/girafa.jpg" },
-      ],
+      stories: [{ url: "src/imagens/girafa.jpg" }],
     },
     {
       title: "@MyBabyStory",
       thumb: "src/imagens/bebeEstudio2.jpg",
-      stories: [
-        { url: "src/imagens/bbEstudio.jpg" },
-      ],
+      stories: [{ url: "src/imagens/bbEstudio.jpg" }],
     },
     {
       title: "@papai_Anthony ",
       thumb: "src/imagens/2bebes.jpg",
-      stories: [
-        { url: "src/imagens/2bebes.jpg" },
-      ],
+      stories: [{ url: "src/imagens/2bebes.jpg" }],
     },
   ];
 
@@ -64,32 +57,30 @@ export default function HighlightStories({ stories: newStories }) {
   };
 
   return (
-    <div className="highlights">
+    <div className="highlights-s">
       {highlights.map((highlight, index) => (
         <div
           key={index}
-          className="highlight-circle"
+          className="highlight-s-circle"
           onClick={() => setActiveStories(highlight.stories)}
         >
           <img src={highlight.thumb} alt={highlight.title} />
-          <p className="highlight-title">{highlight.title}</p>
+          <p className="highlight-s-title">{highlight.title}</p>
         </div>
       ))}
 
       {activeStories && (
-        <div className="stories-overlay">
-          <div className="stories-container" onClick={handleTap}>
+        <div className="stories-s-overlay">
+          <div className="stories-s-container" onClick={handleTap}>
             <button
-              className="close-btn"
+              className="close-s-btn"
               onClick={(e) => {
                 e.stopPropagation();
                 closeStories();
               }}
-            >
-              ×
-            </button>
+            ></button>
 
-            <div className="stories-wrapper">
+            <div className="stories-s-wrapper">
               <Stories
                 stories={activeStories}
                 defaultInterval={5000}
@@ -101,10 +92,10 @@ export default function HighlightStories({ stories: newStories }) {
               />
             </div>
 
-            <button className="prev-btn" onClick={prevStory}>
+            <button className="prev-s-btn" onClick={prevStory}>
               ‹
             </button>
-            <button className="next-btn" onClick={nextStory}>
+            <button className="next-s-btn" onClick={nextStory}>
               ›
             </button>
           </div>
