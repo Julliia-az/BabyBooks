@@ -96,7 +96,9 @@ export default function Destaques({ stories = [] }) {
                 e.stopPropagation();
                 closeStories();
               }}
-            ></button>
+            >
+              X
+            </button>
 
             <div className="stories-d-wrapper">
               <Stories

@@ -13,7 +13,7 @@ const Container = styled.div`
   background: #c6cdbc;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  z-index: 2;
+  z-index: 1;
   @media (min-width: 768px) {
     padding: 30px;
   }
