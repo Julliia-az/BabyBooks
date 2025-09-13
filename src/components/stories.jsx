@@ -12,23 +12,20 @@ export default function HighlightStories({ stories: newStories }) {
       title: "@mamãe_da_Malu",
       thumb: "src/imagens/coelinhas.jpg",
       stories: [
-        { url: "src/imagens/coelhinhas.jpg" },
-        { url: "src/imagens/bbCozinhando.jpg" },
+        { url: "src/imagens/coelinhas.jpg" },
       ],
     },{
       title: "mamãe_Clarinha",
       thumb: "src/imagens/girafa.jpg",
       stories: [
-        { url: "src/imagens/coelhinhas.jpg" },
+        { url: "src/imagens/girafa.jpg" },
       ],
     },
     {
       title: "@MyBabyStory",
       thumb: "src/imagens/bebeEstudio2.jpg",
       stories: [
-        { url: "src/imagens/girafa.jpg" },
         { url: "src/imagens/bbEstudio.jpg" },
-        { url: "src/imagens/girafa.jpg" },
       ],
     },
     {

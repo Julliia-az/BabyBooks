@@ -1,22 +1,28 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { ScrollPanel } from "primereact/scrollpanel";
+import { Card } from "primereact/card";
+import { Button } from "primereact/button";
 
-const NewPost = styled.div`
+const NewPostContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 
   textarea {
     width: 100%;
-    min-height: 60px;
-    padding: 8px;
+    min-height: 80px;
+    padding: 10px;
     resize: none;
     font-size: 14px;
     border-radius: 8px;
     border: 1px solid #dbdbdb;
+    box-sizing: border-box;
   }
 
   button {
@@ -29,65 +35,82 @@ const NewPost = styled.div`
     color: white;
     cursor: pointer;
     font-weight: 600;
+    transition: background-color 0.2s ease;
 
     &:hover {
       background-color: #c6cdbc;
     }
   }
-`;
 
-const TextPostGrid = styled.div`
-  display: grid;
-  gap: 8px;
-  margin: 15px 0;
-  grid-template-columns: 1fr;
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
+  @media (max-width: 640px) {
+    button {
+      width: 100%;
+      text-align: center;
+    }
   }
 `;
 
-const TextPost = styled.div`
+const TextPostGridContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  gap: 20px;
   align-items: center;
-  justify-content: center;
-  padding: 10px;
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  word-break: break-word;
-  text-align: center;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  font-size: 14px;
 `;
 
-const EmptyTab = styled.div`
+const EmptyTabContainer = styled.div`
   text-align: center;
   margin: 20px 0;
 `;
+
+const footerButtons = (
+  <>
+    <Button
+      label="Like"
+      icon="pi pi-thumbs-up"
+      style={{
+        backgroundColor: "#c97d68",
+        borderColor: "#c97d68",
+        color: "white",
+      }}
+    />
+    <Button
+      label="Comment"
+      icon="pi pi-comment"
+      style={{
+        marginLeft: "0.5em",
+        backgroundColor: "#c6cdbc",
+        borderColor: "#c6cdbc",
+        color: "white",
+      }}
+    />
+  </>
+);
 
 export default function TextPosts({ textPosts, setTextPosts }) {
   const [newPost, setNewPost] = useState("");
 
   const handlePostSubmit = () => {
     if (newPost.trim() !== "") {
-      setTextPosts([newPost, ...textPosts]);
+      const postObj = {
+        title: "Mamãe da Ana",
+        subTitle: new Date().toLocaleString("pt-BR", {
+          dateStyle: "short",
+        }),
+        content: newPost,
+      };
+      setTextPosts([postObj, ...textPosts]);
       setNewPost("");
     }
   };
 
   return (
     <>
-      <NewPost>
+      <NewPostContainer>
         <textarea
           placeholder="O que você gostaria de compartilhar?"
           value={newPost}
           onChange={(e) => setNewPost(e.target.value)}
         />
-
         <motion.button
           onClick={handlePostSubmit}
           whileHover={{ scale: 1.05 }}
@@ -95,29 +118,33 @@ export default function TextPosts({ textPosts, setTextPosts }) {
         >
           Publicar
         </motion.button>
-      </NewPost>
+      </NewPostContainer>
 
       {textPosts.length > 0 ? (
-        <TextPostGrid>
-          {textPosts.map((text, i) => (
-            <TextPost key={i}>
-              <ScrollPanel
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  border: "2px solid #ccc",
-                }}
-              >
-                <div style={{ padding: "10px" }}>{text}</div>
-              </ScrollPanel>
-            </TextPost>
+        <TextPostGridContainer>
+          {textPosts.map((post, i) => (
+            <Card
+              key={i}
+              title={post.title}
+              subTitle={post.subTitle}
+              footer={footerButtons}
+              className="mb-4"
+              style={{
+                width: "100%",
+                maxWidth: "600px",
+                borderStyle: "double",
+                wordBreak: "break-word",
+              }}
+            >
+              <p className="m-0">{post.content}</p>
+            </Card>
           ))}
-        </TextPostGrid>
+        </TextPostGridContainer>
       ) : (
-        <EmptyTab>
+        <EmptyTabContainer>
           <h2>Nada compartilhado ainda</h2>
           <p>Escreva algo para aparecer nesta seção.</p>
-        </EmptyTab>
+        </EmptyTabContainer>
       )}
     </>
   );

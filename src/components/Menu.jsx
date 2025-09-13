@@ -18,7 +18,6 @@ function Menu({ darkMode, setDarkMode }) {
   const items = [
     { icon: "pi pi-home", command: () => navigate("/") },
     { icon: "pi pi-user", command: () => navigate("/perfil") },
-    { icon: "pi pi-bell", badge: 1, template: itemRenderer },
     { icon: "pi pi-plus-circle", command: () => navigate("/newPost") },
   ];
 

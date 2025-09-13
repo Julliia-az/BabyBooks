@@ -4,12 +4,16 @@ import { Button } from "primereact/button";
 function Posts({ posts }) {
   const footer = (
     <>
-      <Button label="Like" icon="pi pi-thumbs-up" style={{backgroundColor:"#c97d68"}}/>
+      <Button
+        label="Like"
+        icon="pi pi-thumbs-up"
+        style={{ backgroundColor: "#c97d68", borderColor: "#c97d68", color: "white" }}
+      />
       <Button
         label="Comment"
         severity="secondary"
         icon="pi pi-comment"
-        style={{ marginLeft: "0.5em", backgroundColor:"#c6cdbc"}}
+        style={{ marginLeft: "0.5em", backgroundColor: "#c6cdbc", borderColor: "#c6cdbc", color: "white" }}
       />
     </>
   );
@@ -19,7 +23,7 @@ function Posts({ posts }) {
       style={{
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-around",
+        justifyContent: "flex-start",
         alignItems: "center",
         minHeight: "80vh",
         width: "100%",
@@ -27,6 +31,7 @@ function Posts({ posts }) {
         boxSizing: "border-box",
         paddingTop: "6rem",
         paddingBottom: "4rem",
+        gap: "1rem",
       }}
     >
       {posts.map((post, index) => (
@@ -36,7 +41,14 @@ function Posts({ posts }) {
           subTitle={post.user}
           footer={footer}
           className="mb-4"
-          style={{ width: "600px", borderStyle: "double" }}
+          style={{
+            width: "100%",      
+            maxWidth: "600px",  
+            minWidth: "280px",  
+            borderStyle: "double",
+            boxSizing: "border-box",
+            wordBreak: "break-word",
+          }}
         >
           <p className="m-0">{post.content}</p>
         </Card>
