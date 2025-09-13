@@ -1,4 +1,4 @@
-## Etec Polivalente Americana – Fatec Americana Desenvolvimento de sistema Articulação Médio Superior
+## Etec Polivalente de Americana - Desenvolvimento de Sistemas(AMS) 
 
 ### Projeto: BabyBooks (BBBs)
 
