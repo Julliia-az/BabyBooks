@@ -11,7 +11,7 @@ import styled from "styled-components";
 import TextPosts from "./Posts/TextPost.jsx";
 import MediaPosts from "./Posts/MediaPost.jsx";
 
-import bbColo from "../imagens/bbColo.jpg";
+import bbColo from "/imagens/bbColo.jpg";
 const avatarUrl = bbColo;
 
 // 🔹 Styled Components
@@ -99,7 +99,9 @@ const FollowButton = styled(motion.button)`
     className && className.includes("following") ? "transparent" : "#c97d68"};
   color: ${({ className }) =>
     className && className.includes("following") ? "#transparent" : "#fff"};
-  &:hover { background: #c6cdbc; }
+  &:hover {
+    background: #c6cdbc;
+  }
 `;
 
 const Stats = styled.div`

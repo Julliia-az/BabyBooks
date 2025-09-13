@@ -65,6 +65,7 @@
   overflow: hidden;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
   cursor: pointer;
+  z-index: 5;
 }
 
 .stories-s-wrapper {

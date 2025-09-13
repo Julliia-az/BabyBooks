@@ -10,7 +10,7 @@ function Menu() {
   ];
 
   const start = (
-    <img alt="logo" src="src/imagens/Logo.png" height="45" className="mr-2" />
+    <img alt="logo" src="/imagens/Logo.png" height="45" className="mr-2" />
   );
 
   const end = <div className="flex align-items-center gap-3"></div>;

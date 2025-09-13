@@ -10,26 +10,26 @@ export default function Destaques({ stories = [] }) {
   const highlights = [
     {
       title: "DIÁRIO",
-      thumb: "src/imagens/ultrassom.jpg",
+      thumb: "/imagens/ultrassom.jpg",
       stories: [
-        { url: "src/imagens/ultrassom.jpg" },
-        { url: "src/imagens/bbCozinhando.jpg" },
-        { url: "src/imagens/coelinhas.jpg" },
+        { url: "/imagens/ultrassom.jpg" },
+        { url: "/imagens/bbCozinhando.jpg" },
+        { url: "/imagens/coelinhas.jpg" },
       ],
     },
     {
       title: "MESES",
-      thumb: "src/imagens/bebeEstudio2.jpg",
+      thumb: "/imagens/bebeEstudio2.jpg",
       stories: [
-        { url: "src/imagens/bebeEstudio2.jpg" },
-        { url: "src/imagens/bbEstudio.jpg" },
-        { url: "src/imagens/girafa.jpg" },
+        { url: "/imagens/bebeEstudio2.jpg" },
+        { url: "/imagens/bbEstudio.jpg" },
+        { url: "/imagens/girafa.jpg" },
       ],
     },
     {
       title: "PASSEIOS",
-      thumb: "src/imagens/2bebes.jpg",
-      stories: [{ url: "src/imagens/2bebes.jpg" }],
+      thumb: "/imagens/2bebes.jpg",
+      stories: [{ url: "/imagens/2bebes.jpg" }],
     },
   ];
 

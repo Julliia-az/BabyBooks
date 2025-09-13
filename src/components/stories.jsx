@@ -10,22 +10,22 @@ export default function HighlightStories() {
   const highlights = [
     {
       title: "@mamãe_da_Malu",
-      thumb: "src/imagens/coelinhas.jpg",
+      thumb: "/imagens/coelinhas.jpg",
       stories: [{ url: "src/imagens/coelinhas.jpg" }],
     },
     {
       title: "mamãe_Clarinha",
-      thumb: "src/imagens/girafa.jpg",
+      thumb: "/imagens/girafa.jpg",
       stories: [{ url: "src/imagens/girafa.jpg" }],
     },
     {
       title: "@MyBabyStory",
-      thumb: "src/imagens/bebeEstudio2.jpg",
+      thumb: "/imagens/bebeEstudio2.jpg",
       stories: [{ url: "src/imagens/bbEstudio.jpg" }],
     },
     {
       title: "@papai_Anthony ",
-      thumb: "src/imagens/2bebes.jpg",
+      thumb: "/imagens/2bebes.jpg",
       stories: [{ url: "src/imagens/2bebes.jpg" }],
     },
   ];
