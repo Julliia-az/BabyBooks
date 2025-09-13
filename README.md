@@ -54,3 +54,6 @@ git add .
 git commit -m ""
 
 git push origin main
+
+### URL para acesso ao Deploy do Projeto:
+'https://baby-books.vercel.app/'
